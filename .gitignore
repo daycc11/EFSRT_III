@@ -1,0 +1,20 @@
+# Ignorar configuraciones locales de Eclipse
+.metadata/
+.classpath
+.project
+.settings/
+
+# Ignorar archivos generados por el servidor
+tmp/
+target/
+build/
+bin/
+
+# Ignorar configuraciones de Tomcat y temporales
+Servers/
+*.log
+*.class
+
+# Ignorar sistema operativo
+.DS_Store
+Thumbs.db
