@@ -1,12 +1,12 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
-<%@ page import="Modelo.Incidencia" %>
+<%@ page import="Modelo.Cita" %>
 <%
     HttpSession sesion = request.getSession(false);
-    Integer idEstudianteSesion = (Integer) sesion.getAttribute("idEstudiante");
+    Integer idPacienteSesion = (Integer) sesion.getAttribute("idPaciente");
 
-    if (idEstudianteSesion == null) {
-        response.sendRedirect(request.getContextPath() + "/vistas/estudiante/loginEst.jsp");
+    if (idPacienteSesion == null) {
+        response.sendRedirect(request.getContextPath() + "/vistas/paciente/loginPac.jsp");
         return;
     }
 %>
@@ -14,11 +14,12 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Mis Incidencias</title>
+    <title>Mis Citas Programadas</title>
     <link rel="icon" href="<%=request.getContextPath()%>/img/icono.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
     <style>
         body {
             background: linear-gradient(to right, #e9f1ff, #ffffff);
@@ -82,59 +83,67 @@
 </head>
 <body>
     <div class="container mt-4">
+        <!-- Banner -->
         <div class="banner mb-3">
             <img src="<%=request.getContextPath()%>/img/cibertec.png" alt="Banner">
         </div>
         
+        <!-- Datos del paciente -->
         <div class="welcome-text">
-            <strong><i class="fas fa-user-graduate"></i> Estudiante:</strong> <%= session.getAttribute("nombres") %> <%= session.getAttribute("apellidos") %>
+            <strong><i class="fas fa-user"></i> Paciente:</strong> 
+            <%= session.getAttribute("nombres") %> <%= session.getAttribute("apellidos") %>
         </div>
 
+        <!-- Botones de acción -->
         <div class="mt-3 mb-3 d-flex">
-            <a href="<%=request.getContextPath()%>/IncidenciaServlet?accion=listarEst" class="btn btn-light me-2">
-                <i class="bi bi-journal-text"></i> Reporte Incidencias
+            <a href="<%=request.getContextPath()%>/CitaServlet?accion=nuevaCita" class="btn btn-light me-2">
+                <i class="bi bi-calendar-plus"></i> Nueva Cita
             </a>
             <a href="<%=request.getContextPath()%>/login.jsp" class="btn btn-light me-2">
                 <i class="bi bi-box-arrow-right text-danger"></i> Cerrar sesión
             </a>
         </div>
 
+        <!-- Título -->
         <div class="section-title text-center mb-4">
-            <h5><i class="bi bi-list-check"></i> Mis Incidencias Registradas</h5>
+            <h5><i class="bi bi-calendar-check"></i> Mis Citas Programadas</h5>
         </div>
 
+        <!-- Tabla de citas -->
         <div class="table-responsive">
             <%
-                List<Incidencia> lista = (List<Incidencia>) request.getAttribute("incidencias");
+                List<Cita> lista = (List<Cita>) request.getAttribute("citas");
                 if (lista != null && !lista.isEmpty()) {
             %>
             <table class="table table-bordered text-center">
                 <thead class="thead-azul-oscuro">
                     <tr>
-                        <th>Fecha</th>
-                        <th>Tipo</th>
+                        <th>ID</th>
+                        <th>Fecha Registrada</th>
+                        <th>Hora Registrada</th>
+                        <th>Fecha Programada</th>
+                        <th>Hora Programada</th>
                         <th>Descripción</th>
-                        <th>Sede</th>
-                        <th>Código Aula</th>
                         <th>Estado</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <% for (Incidencia i : lista) { %>
+                    <% for (Cita c : lista) { %>
                     <tr>
-                        <td><%= i.getFecha() %></td>
-                        <td><%= i.getTipo() %></td>
-                        <td><%= i.getDescripcion() %></td>
-                        <td><%= i.getSede() %></td>
-                        <td><%= i.getCodigoAula() %></td>
-                        <td><%= i.getEstado() %></td>
+                        <td><%= c.getIdCita() %></td>
+                        <td><%= c.getFechaRegistrada() %></td>
+                        <td><%= c.getHoraRegistrada() %></td>
+                        <td><%= c.getFechaProgramada() %></td>
+                        <td><%= c.getHoraProgramada() %></td>
+                        <td><%= c.getDescripcion() %></td>
+                        <td><%= c.getEstado() %></td>
                     </tr>
                     <% } %>
                 </tbody>
             </table>
             <% } else { %>
             <div class="alert alert-info text-center" role="alert">
-                <i class="bi bi-info-circle-fill"></i> No se encontraron incidencias registradas.
+                <i class="bi bi-info-circle-fill"></i> No tienes citas registradas.
             </div>
             <% } %>
         </div>

@@ -1,157 +1,190 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%
-    String errorLogin = (String) request.getAttribute("errorLogin");
+String errorLogin = (String) request.getAttribute("errorLogin");
 %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Login Estudiante</title>
-    <link rel="icon" href="<%=request.getContextPath()%>/img/icono.png" type="image/x-icon">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<title>Login Paciente</title>
+<link rel="icon" href="<%=request.getContextPath()%>/img/icono.png"
+	type="image/x-icon">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+* {
+	box-sizing: border-box;
+}
 
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), 
-                        url('<%= request.getContextPath() %>/img/fondo.png') no-repeat center center fixed;
-            background-size: cover;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            animation: fadeIn 1s ease;
-        }
+body {
+	margin: 0;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)),
+		url('<%=request.getContextPath()%>/img/fondo.png') no-repeat center
+		center fixed;
+	background-size: cover;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	animation: fadeIn 1s ease;
+}
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
-        }
+@
+keyframes fadeIn {from { opacity:0;
+	transform: scale(0.95);
+}
 
-        .login-container {
-            background-color: rgba(255, 255, 255, 0.95);
-            padding: 40px 30px;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-            width: 360px;
-            text-align: center;
-            animation: popUp 0.6s ease;
-        }
+to {
+	opacity: 1;
+	transform: scale(1);
+}
 
-        @keyframes popUp {
-            0% { transform: scale(0.95); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
+}
+.login-container {
+	background-color: rgba(255, 255, 255, 0.95);
+	padding: 40px 30px;
+	border-radius: 16px;
+	box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+	width: 360px;
+	text-align: center;
+	animation: popUp 0.6s ease;
+}
 
-        .login-container h2 {
-            color: #0d6efd;
-            margin-bottom: 25px;
-            font-size: 26px;
-        }
+@
+keyframes popUp { 0% {
+	transform: scale(0.95);
+	opacity: 0;
+}
 
-        .error {
-            color: #dc3545;
-            font-weight: bold;
-            margin-bottom: 15px;
-            font-size: 14px;
-        }
+100
+%
+{
+transform
+:
+scale(
+1
+);
+opacity
+:
+1;
+}
+}
+.login-container h2 {
+	color: #198754;
+	margin-bottom: 25px;
+	font-size: 26px;
+}
 
-        .form-group {
-            margin-bottom: 20px;
-            text-align: left;
-        }
+.error {
+	color: #dc3545;
+	font-weight: bold;
+	margin-bottom: 15px;
+	font-size: 14px;
+}
 
-        .form-group label {
-            font-weight: 600;
-            color: #333;
-            display: block;
-            margin-bottom: 5px;
-        }
+.form-group {
+	margin-bottom: 20px;
+	text-align: left;
+}
 
-        .form-group input {
-            width: 100%;
-            padding: 10px 12px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-size: 15px;
-            transition: border 0.3s ease;
-        }
+.form-group label {
+	font-weight: 600;
+	color: #333;
+	display: block;
+	margin-bottom: 5px;
+}
 
-        .form-group input:focus {
-            border-color: #0d6efd;
-            outline: none;
-        }
+.form-group input {
+	width: 100%;
+	padding: 10px 12px;
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	font-size: 15px;
+	transition: border 0.3s ease;
+}
 
-        .form-group i {
-            margin-right: 8px;
-            color: #0d6efd;
-        }
+.form-group input:focus {
+	border-color: #198754;
+	outline: none;
+}
 
-        .button-group {
-            display: flex;
-            justify-content: space-between;
-            gap: 12px;
-            margin-top: 20px;
-        }
+.form-group i {
+	margin-right: 8px;
+	color: #198754;
+}
 
-        .login-container input[type="submit"],
-        .login-container button {
-            flex: 1;
-            background-color: #0d6efd;
-            color: white;
-            padding: 10px 0;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background 0.3s ease, transform 0.3s ease;
-        }
+.button-group {
+	display: flex;
+	justify-content: space-between;
+	gap: 12px;
+	margin-top: 20px;
+}
 
-        .login-container input[type="submit"]:hover,
-        .login-container button:hover {
-            background-color: #0b5ed7;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        }
+.login-container input[type="submit"], .login-container button {
+	flex: 1;
+	background-color: #198754;
+	color: white;
+	padding: 10px 0;
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+	font-size: 16px;
+	transition: background 0.3s ease, transform 0.3s ease;
+}
 
-        .icon {
-            margin-right: 6px;
-        }
-    </style>
+.login-container input[type="submit"]:hover, .login-container button:hover
+	{
+	background-color: #157347;
+	transform: translateY(-2px);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.icon {
+	margin-right: 6px;
+}
+</style>
 </head>
 <body>
-<div class="login-container">
-    <h2><i class="fas fa-user-graduate"></i> Iniciar Sesión</h2>
+	<div class="login-container">
+		<h2>
+			<i class="fas fa-user-injured"></i> Iniciar Sesión Paciente
+		</h2>
 
-    <% if (errorLogin != null) { %>
-        <p class="error"><i class="fas fa-exclamation-circle"></i> <%= errorLogin %></p>
-    <% } %>
+		<%
+		if (errorLogin != null) {
+		%>
+		<p class="error">
+			<i class="fas fa-exclamation-circle"></i>
+			<%=errorLogin%></p>
+		<%
+		}
+		%>
 
-    <form action="<%= request.getContextPath() %>/validarEst.jsp" method="post">
-        <div class="form-group">
-            <label for="dni"><i class="fas fa-id-card"></i> <strong>DNI:</strong> </label>
-            <input type="text" name="dni" id="dni" required placeholder="Ingrese DNI" maxlength="8"
-                   oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-                   value="<%= request.getAttribute("filtro") != null ? request.getAttribute("filtro") : "" %>">
-        </div>
+		<form action="<%=request.getContextPath()%>/vistas/logeo/validarPac.jsp"
+			method="post">
+			<div class="form-group">
+				<label for="dni"><i class="fas fa-id-card"></i> <strong>DNI:</strong></label>
+				<input type="text" name="dni" id="dni" required
+					placeholder="Ingrese su DNI" maxlength="8"
+					oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+					value="<%=request.getAttribute("filtro") != null ? request.getAttribute("filtro") : ""%>">
+			</div>
 
-        <div class="form-group">
-            <label for="clave"><i class="fas fa-lock"></i> <strong>Contraseña:</strong></label>
-            <input type="password" name="clave" placeholder="Ingrese Contraseña" required>
-        </div>
+			<div class="form-group">
+				<label for="clave"><i class="fas fa-lock"></i> <strong>Contraseña:</strong></label>
+				<input type="password" name="clave" id="clave" required
+					placeholder="Ingrese su contraseña">
+			</div>
 
-        <div class="button-group">
-            <input type="submit" value="Ingresar">
-            <button type="button" onclick="window.location.href='<%= request.getContextPath() %>/login.jsp'">
-                Regresar
-            </button>
-        </div>
-    </form>
-</div>
+			<div class="button-group">
+				<input type="submit" value="Ingresar">
+				<button type="button"
+					onclick="window.location.href='<%=request.getContextPath()%>/vistas/logeo/login.jsp'">
+					Regresar</button>
+			</div>
+		</form>
+	</div>
 </body>
 </html>

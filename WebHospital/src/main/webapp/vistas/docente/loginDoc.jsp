@@ -7,7 +7,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Login Docente</title>
+    <title>Login Doctor</title>
     <link rel="icon" href="<%=request.getContextPath()%>/img/icono.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
@@ -128,7 +128,7 @@
         <p class="error"><i class="fas fa-exclamation-circle"></i> <%= errorLogin %></p>
     <% } %>
 
-    <form action="<%= request.getContextPath() %>/validarDoc.jsp" method="post">
+    <form action="<%= request.getContextPath() %>/vistas/logeo/validarDoc.jsp" method="post">
         <div class="form-group">
             <label for="dni"><i class="fas fa-id-card"></i> <strong>DNI:</strong> </label>
             <input type="text" name="dni" id="dni" required
@@ -144,7 +144,7 @@
 
         <div class="button-group">
             <input type="submit" value="Ingresar">
-            <button type="button" onclick="window.location.href='<%= request.getContextPath() %>/login.jsp'">
+            <button type="button" onclick="window.location.href='<%= request.getContextPath() %>/vistas/logeo/login.jsp'">
                 Regresar
             </button>
         </div>
