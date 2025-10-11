@@ -105,7 +105,7 @@ body {
 			<a href="<%=request.getContextPath()%>/CitaServlet?accion=listarPorPac"
 				class="btn btn-light me-2"> <i class="bi bi-calendar-plus"></i>
 				Mis Citas
-			</a> <a href="<%=request.getContextPath()%>/login.jsp"
+			</a> <a href="<%=request.getContextPath()%>/vistas/logeo/login.jsp"
 				class="btn btn-light me-2"> <i
 				class="bi bi-box-arrow-right text-danger"></i> Cerrar sesión
 			</a>

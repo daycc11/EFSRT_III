@@ -90,7 +90,7 @@ public class PacienteDAO implements PacienteCRUD {
                 pac.setContrasenia(rs.getString("contrasenia"));
             }
         } catch (Exception e) {
-            System.out.println("❌ Error al obtener paciente: " + e.getMessage());
+            System.out.println("Error al obtener paciente: " + e.getMessage());
         }
         return pac;
     }
@@ -112,7 +112,7 @@ public class PacienteDAO implements PacienteCRUD {
             ps.executeUpdate();
             return true;
         } catch (Exception e) {
-            System.out.println("❌ Error al agregar paciente: " + e.getMessage());
+            System.out.println("Error al agregar paciente: " + e.getMessage());
         }
         return false;
     }
@@ -135,7 +135,7 @@ public class PacienteDAO implements PacienteCRUD {
             ps.executeUpdate();
             return true;
         } catch (Exception e) {
-            System.out.println("❌ Error al editar paciente: " + e.getMessage());
+            System.out.println("Error al editar paciente: " + e.getMessage());
         }
         return false;
     }
@@ -150,7 +150,7 @@ public class PacienteDAO implements PacienteCRUD {
             ps.executeUpdate();
             return true;
         } catch (Exception e) {
-            System.out.println("❌ Error al eliminar paciente: " + e.getMessage());
+            System.out.println("Error al eliminar paciente: " + e.getMessage());
         }
         return false;
     }

@@ -42,7 +42,7 @@ body {
 </head>
 <body
 	class="bg-background-light dark:bg-background-dark font-display flex items-center justify-center min-h-screen bg-cover bg-center"
-	style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.4)), url('<%=request.getContextPath()%>/img/fondo.png');">
+	style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.4)), url('<%=request.getContextPath()%>/img/fondoLogin.png');">
 	<div
 		class="w-full max-w-md bg-white/95 dark:bg-gray-900/90 backdrop-blur-sm rounded-xl shadow-lg p-8 text-center">
 		<svg class="w-12 h-12 mx-auto text-primary" fill="none"

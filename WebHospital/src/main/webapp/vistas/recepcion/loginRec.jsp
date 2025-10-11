@@ -7,14 +7,14 @@ String errorLogin = (String) request.getAttribute("errorLogin");
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Login Doctor</title>
-<link rel="icon" href="<%=request.getContextPath()%>/img/icono.png"
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login Recepcionista</title>
+<link href="<%=request.getContextPath()%>/img/icono.png" rel="icon"
 	type="image/x-icon" />
 <script
 	src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com" rel="preconnect" />
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+<link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
 <link
 	href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
 	rel="stylesheet" />
@@ -54,12 +54,12 @@ body {
 		<svg class="w-12 h-12 mx-auto text-primary" fill="none"
 			stroke="currentColor" viewBox="0 0 24 24"
 			xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 6v6m0 0v6m0-6h6m-6 0H6" stroke-linecap="round"
+			<path d="M12 6v6m0 0v6m0-6h6m-6 0H6" stroke-linecap="round"
 				stroke-linejoin="round" stroke-width="2"></path>
-    </svg>
+		</svg>
 
 		<h1 class="text-3xl font-bold text-gray-800 dark:text-white mt-4">Bienvenido
-			Doctor</h1>
+			Recepcionista</h1>
 		<p class="text-gray-600 dark:text-gray-400 mt-2">Inicia sesión
 			para continuar</p>
 
@@ -76,29 +76,33 @@ body {
 		%>
 
 		<form class="space-y-6 mt-6"
-			action="<%=request.getContextPath()%>/vistas/logeo/validarDoc.jsp"
+			action="<%=request.getContextPath()%>/vistas/logeo/validarRec.jsp"
 			method="post">
-			<div class="relative">
-				<span
-					class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500">badge</span>
-				<input id="dni" name="dni" type="text" maxlength="8" required
-					placeholder="Ingrese su DNI"
-					oninput="this.value=this.value.replace(/[^0-9]/g,'')"
-					value="<%=request.getAttribute("filtro") != null ? request.getAttribute("filtro") : ""%>"
-					class="w-full pl-10 pr-4 py-3 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white border-transparent focus:ring-2 focus:ring-primary placeholder-gray-500 dark:placeholder-gray-400" />
+			<div>
+				<div class="relative">
+					<span
+						class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500">badge</span>
+					<input type="text" name="dni" id="dni" maxlength="8" required
+						placeholder="Ingrese su DNI"
+						oninput="this.value=this.value.replace(/[^0-9]/g,'')"
+						value="<%=request.getAttribute("filtro") != null ? request.getAttribute("filtro") : ""%>"
+						class="w-full pl-10 pr-4 py-3 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white border-transparent focus:ring-2 focus:ring-primary placeholder-gray-500 dark:placeholder-gray-400">
+				</div>
 			</div>
 
-			<div class="relative">
-				<span
-					class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500">lock</span>
-				<input id="clave" name="clave" type="password" required
-					placeholder="Ingrese su contraseña"
-					class="w-full pl-10 pr-4 py-3 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white border-transparent focus:ring-2 focus:ring-primary placeholder-gray-500 dark:placeholder-gray-400" />
+			<div>
+				<div class="relative">
+					<span
+						class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500">lock</span>
+					<input type="password" name="clave"
+						placeholder="Ingrese su contraseña" required
+						class="w-full pl-10 pr-4 py-3 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white border-transparent focus:ring-2 focus:ring-primary placeholder-gray-500 dark:placeholder-gray-400">
+				</div>
 			</div>
 
 			<div class="flex gap-3">
 				<input type="submit" value="Ingresar"
-					class="w-1/2 py-3 rounded-lg text-white bg-primary hover:bg-primary/90 transition" />
+					class="w-1/2 py-3 rounded-lg text-white bg-primary hover:bg-primary/90 transition">
 				<button type="button"
 					onclick="window.location.href='<%=request.getContextPath()%>/vistas/logeo/login.jsp'"
 					class="w-1/2 py-3 rounded-lg text-white bg-gray-600 hover:bg-gray-700 transition">Regresar</button>

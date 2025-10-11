@@ -3,10 +3,10 @@
 <%@ page import="Modelo.Cita"%>
 <%
 HttpSession sesion = request.getSession(false);
-Integer idPacienteSesion = (Integer) sesion.getAttribute("idPaciente");
+Integer idDoctorSesion = (Integer) sesion.getAttribute("idDoctor");
 
-if (idPacienteSesion == null) {
-	response.sendRedirect(request.getContextPath() + "/vistas/paciente/loginPac.jsp");
+if (idDoctorSesion == null) {
+	response.sendRedirect(request.getContextPath() + "/vistas/logeo/login.jsp");
 	return;
 }
 %>
@@ -90,30 +90,37 @@ body {
 </head>
 <body>
 	<div class="container mt-4">
+
 		<div class="banner mb-3">
 			<img src="<%=request.getContextPath()%>/img/cibertec.png"
 				alt="Banner">
 		</div>
 
 		<div class="welcome-text">
-			<strong><i class="fas fa-user"></i> Doctor:</strong>
+			<strong><i class="fas fa-user-md"></i> Doctor:</strong>
 			<%=session.getAttribute("nombres")%>
 			<%=session.getAttribute("apellidos")%>
 		</div>
 
 		<div class="mt-3 mb-3 d-flex">
-			<a href="<%=request.getContextPath()%>/CitaServlet?accion=nuevaCita"
-				class="btn btn-light me-2"> <i class="bi bi-calendar-plus"></i>
-				Mis Citas
-			</a> <a href="<%=request.getContextPath()%>/login.jsp"
+			<a
+				href="<%=request.getContextPath()%>/CitaServlet?accion=listarPorDoc"
+				class="btn btn-light me-2"> <i class="bi bi-calendar-check"></i>
+				Citas Proximas
+			</a> <a
+				href="<%=request.getContextPath()%>/PacienteServlet?accion=listar&origen=doctor"
+				class="btn btn-light me-2"> <i class="bi bi-clipboard-data"></i>
+				Reporte Pacientes
+			</a> <a href="<%=request.getContextPath()%>/vistas/logeo/login.jsp"
 				class="btn btn-light me-2"> <i
 				class="bi bi-box-arrow-right text-danger"></i> Cerrar sesión
 			</a>
 		</div>
 
+
 		<div class="section-title text-center mb-4">
 			<h5>
-				<i class="bi bi-calendar-check"></i> Mis Citas Programadas
+				<i class="bi bi-calendar-check"></i> Citas Proximas
 			</h5>
 		</div>
 
@@ -126,7 +133,7 @@ body {
 				<thead class="thead-azul-oscuro">
 					<tr>
 						<th>ID</th>
-						<th>Doctor</th>
+						<th>Paciente</th>
 						<th>Fecha Registrada</th>
 						<th>Hora Registrada</th>
 						<th>Fecha Programada</th>
@@ -141,7 +148,7 @@ body {
 					%>
 					<tr>
 						<td><%=c.getIdCita()%></td>
-						<td><%=c.getNombreDoctor()%></td>
+						<td><%=c.getNombrePaciente()%></td>
 						<td><%=c.getFechaRegistrada()%></td>
 						<td><%=c.getHoraRegistrada()%></td>
 						<td><%=c.getFechaProgramada()%></td>

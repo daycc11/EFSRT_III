@@ -4,10 +4,10 @@ import Modelo.Paciente;
 import java.util.List;
 
 public interface PacienteCRUD {
-    public List<Paciente> listar();
-    public Paciente list(int id);
-    public boolean add(Paciente pac);
-    public boolean edit(Paciente pac);
-    public boolean delete(int id);
-    public List<Paciente> buscarPorDNI(String dni);
+    List<Paciente> listar();
+    Paciente list(int id);
+    boolean add(Paciente pac);
+    boolean edit(Paciente pac);
+    boolean delete(int id);
+    List<Paciente> buscarPorDNI(String dni);
 }

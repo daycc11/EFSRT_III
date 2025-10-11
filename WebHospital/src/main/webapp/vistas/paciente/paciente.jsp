@@ -75,7 +75,7 @@
     </div>
     
     <div class="welcome-text text-end">
-    	<strong><i class="fas fa-user-graduate"></i> Paciente:</strong> <%= session.getAttribute("nombres") %> <%= session.getAttribute("apellidos") %>
+    	<strong><i class="fas fa-user"></i> Paciente:</strong> <%= session.getAttribute("nombres") %> <%= session.getAttribute("apellidos") %>
 	</div>
 
     <div class="row mt-4 g-3">
@@ -91,7 +91,7 @@
             <div class="card card-option text-center p-3">
                 <i class="bi bi-box-arrow-right card-icon text-danger"></i>
                 <h6 class="card-title text-danger">Cerrar Sesión</h6>
-                <a href="<%=request.getContextPath()%>/login.jsp" class="stretched-link"></a>
+                <a href="<%=request.getContextPath()%>/vistas/logeo/login.jsp" class="stretched-link"></a>
             </div>
         </div>
     </div>

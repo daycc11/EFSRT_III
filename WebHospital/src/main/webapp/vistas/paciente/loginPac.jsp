@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%
 String errorLogin = (String) request.getAttribute("errorLogin");
 %>
@@ -45,7 +46,7 @@ body {
 </head>
 <body
 	class="bg-background-light dark:bg-background-dark font-display flex flex-col items-center justify-center min-h-screen p-4 bg-cover bg-center"
-	style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.4)), url('<%=request.getContextPath()%>/img/fondo.png');">
+	style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.4)), url('<%=request.getContextPath()%>/img/fondoLogin.png');">
 	<div
 		class="w-full max-w-md mx-auto bg-white/95 dark:bg-gray-900/90 backdrop-blur-sm rounded-xl shadow-lg p-8 text-center">
 		<svg class="w-12 h-12 mx-auto text-primary" fill="none"
@@ -105,7 +106,7 @@ body {
 					onclick="window.location.href='<%=request.getContextPath()%>/vistas/logeo/login.jsp'"
 					class="w-1/2 py-3 rounded-lg text-white bg-gray-600 hover:bg-gray-700 transition">Regresar</button>
 			</div>
-			
+
 			<div class="mt-6 text-center">
 				<a
 					href="<%=request.getContextPath()%>/vistas/paciente/crearCuentaPac.jsp"
