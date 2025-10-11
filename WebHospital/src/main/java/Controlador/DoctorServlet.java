@@ -17,7 +17,7 @@ import java.util.List;
 public class DoctorServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    String listar = "/vistas/administracion/listarDoctor.jsp";
+    String listar = "/vistas/recepcion/listarDoctor.jsp";
 
     DoctorDAO dao = new DoctorDAO();
 

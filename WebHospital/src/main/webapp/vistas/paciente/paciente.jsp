@@ -97,7 +97,7 @@
     </div>
     
     <div class="mt-4">
-        <img src="<%=request.getContextPath()%>/img/estudiante_banner.png" 
+        <img src="<%=request.getContextPath()%>/img/cita.jpeg" 
              alt="Bienvenido Estudiante"
              class="img-banner-estudiante">
     </div>

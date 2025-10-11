@@ -121,7 +121,7 @@ body {
 		</div>
 
 		<div class="mt-4">
-			<img src="<%=request.getContextPath()%>/img/docente_banner.png"
+			<img src="<%=request.getContextPath()%>/img/doctor.jpeg"
 				alt="Bienvenido Doctor" class="img-banner-docente">
 		</div>
 
