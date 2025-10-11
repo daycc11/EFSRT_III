@@ -22,14 +22,14 @@
             session.setAttribute("rol", "doctor");
             session.setAttribute("idDoctor", rs.getInt("idDoctor"));
 
-            response.sendRedirect("vistas/doctor/doctor.jsp");
+            response.sendRedirect(request.getContextPath() + "/vistas/doctor/doctor.jsp");
         } else {
             request.setAttribute("errorLogin", "DNI o Contraseña incorrectos.");
-            request.getRequestDispatcher("vistas/doctor/loginDoctor.jsp").forward(request, response);
+            request.getRequestDispatcher("/vistas/doctor/loginDoc.jsp").forward(request, response);
         }
     } catch (Exception e) {
         request.setAttribute("errorLogin", "Error en el sistema: " + e.getMessage());
-        request.getRequestDispatcher("vistas/doctor/loginDoctor.jsp").forward(request, response);
+        request.getRequestDispatcher("/vistas/doctor/loginDoctor.jsp").forward(request, response);
     } finally {
         if (rs != null) rs.close();
         if (ps != null) ps.close();

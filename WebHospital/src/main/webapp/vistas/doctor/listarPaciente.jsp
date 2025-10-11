@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.util.List, Modelo.Estudiante" %>
+<%@ page import="java.util.List, Modelo.Paciente" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -86,7 +86,7 @@
     </div>
 
     <div class="text-end mb-2">
-        <strong><i class="bi bi-person-circle"></i> Docente:</strong> <%= session.getAttribute("nombres") %> <%= session.getAttribute("apellidos") %>
+        <strong><i class="bi bi-person-circle"></i> Doctor:</strong> <%= session.getAttribute("nombres") %> <%= session.getAttribute("apellidos") %>
     </div>
 
     <div class="mb-4 d-flex flex-wrap gap-2">
@@ -146,7 +146,7 @@
 
     <div class="table-responsive">
         <%
-            List<Estudiante> estudiantes = (List<Estudiante>) request.getAttribute("estudiantes");
+            List<Paciente> estudiantes = (List<Paciente>) request.getAttribute("estudiantes");
             if (estudiantes != null && !estudiantes.isEmpty()) {
         %>
         <table class="table table-bordered text-center">
@@ -163,7 +163,7 @@
                 </tr>
             </thead>
             <tbody>
-                <% for (Estudiante e : estudiantes) { %>
+                <% for (Paciente e : pacientes) { %>
                 <tr>
                     <td><%= e.getIdEstudiante() %></td>
                     <td><%= e.getDni() %></td>
@@ -179,7 +179,7 @@
         </table>
         <% } else { %>
             <div class="alert alert-info text-center mt-3">
-                No se encontraron estudiantes registrados.
+                No se encontraron pacientes registrados.
             </div>
         <% } %>
     </div>

@@ -15,21 +15,20 @@
         rs = ps.executeQuery();
 
         if (rs.next()) {
-        	
             session.setAttribute("dni", dni);
             session.setAttribute("nombres", rs.getString("nombres"));
             session.setAttribute("apellidos", rs.getString("apellidos"));
             session.setAttribute("rol", "paciente");
             session.setAttribute("idPaciente", rs.getInt("idPaciente"));
-            
-            response.sendRedirect("vistas/paciente/paciente.jsp");
+
+            response.sendRedirect(request.getContextPath() + "/vistas/paciente/paciente.jsp");
         } else {
             request.setAttribute("errorLogin", "DNI o Contraseña incorrectos.");
-            request.getRequestDispatcher("vistas/paciente/loginPac.jsp").forward(request, response);
+            request.getRequestDispatcher("/vistas/paciente/loginPac.jsp").forward(request, response);
         }
     } catch (Exception e) {
         request.setAttribute("errorLogin", "Error del sistema: " + e.getMessage());
-        request.getRequestDispatcher("vistas/paciente/loginPac.jsp").forward(request, response);
+        request.getRequestDispatcher("/vistas/paciente/loginPac.jsp").forward(request, response);
     } finally {
         if (rs != null) rs.close();
         if (ps != null) ps.close();

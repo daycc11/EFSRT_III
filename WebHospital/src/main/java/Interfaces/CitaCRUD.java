@@ -5,7 +5,9 @@ import java.util.List;
 
 public interface CitaCRUD {
     List<Cita> listar();
-    List<Cita> listarPorPaciente(int idPaciente);
+    List<Cita> listarPorPac(int idPaciente);
+    List<Cita> listarPorDoc(int idDoctor);
+    List<Cita> listarPorEstado(String estado);
     List<Cita> buscarPorFecha(String fecha);
     Cita list(int id);
     boolean add(Cita c);

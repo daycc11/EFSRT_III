@@ -128,7 +128,7 @@
         <p class="error"><i class="fas fa-exclamation-circle"></i> <%= errorLogin %></p>
     <% } %>
 
-    <form action="<%= request.getContextPath() %>/validarAdm.jsp" method="post">
+    <form action="<%= request.getContextPath() %>/vistas/logeo/validarAdm.jsp" method="post">
         <div class="form-group">
             <label for="dni"><i class="fas fa-id-card"></i><strong>DNI:</strong> </label>
             <input type="text" name="dni" id="dni" required
@@ -144,7 +144,7 @@
 
         <div class="button-group">
             <input type="submit" value="Ingresar">
-            <button type="button" onclick="window.location.href='<%= request.getContextPath() %>/login.jsp'">
+            <button type="button" onclick="window.location.href='<%= request.getContextPath() %>/vistas/logeo/login.jsp'">
                 Regresar
             </button>
         </div>

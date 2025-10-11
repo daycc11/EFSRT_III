@@ -74,23 +74,23 @@
     </div>
 
     <div class="welcome-text text-end">
-        <strong><i class="bi bi-person-circle"></i> Docente:</strong> <%= session.getAttribute("nombres") %> <%= session.getAttribute("apellidos") %>
+        <strong><i class="bi bi-person-circle"></i> Doctor:</strong> <%= session.getAttribute("nombres") %> <%= session.getAttribute("apellidos") %>
     </div>
 
     <div class="row mt-4 g-3">
         <div class="col-md-4">
             <div class="card card-option text-center p-3">
                 <i class="bi bi-journal-plus card-icon"></i>
-                <h5 class="card-title">Registrar Incidencia</h5>
-                <a href="<%=request.getContextPath()%>/IncidenciaServlet?accion=add" class="stretched-link"></a>
+                <h5 class="card-title">Proximas Citas</h5>
+                <a href="<%=request.getContextPath()%>/CitaServlet?accion=add" class="stretched-link"></a>
             </div>
         </div>
 
         <div class="col-md-4">
             <div class="card card-option text-center p-3">
                 <i class="bi bi-clipboard-data card-icon"></i>
-                <h5 class="card-title">Reporte Estudiante</h5>
-                <a href="<%=request.getContextPath()%>/EstudianteServlet?accion=listar&origen=docente" class="stretched-link"></a>
+                <h5 class="card-title">Reporte Pacientes</h5>
+                <a href="<%=request.getContextPath()%>/PacienteServlet?accion=listar&origen=docente" class="stretched-link"></a>
             </div>
         </div>
 

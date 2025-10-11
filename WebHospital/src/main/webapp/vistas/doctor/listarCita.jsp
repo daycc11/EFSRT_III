@@ -96,13 +96,13 @@ body {
 		</div>
 
 		<div class="welcome-text">
-			<strong><i class="fas fa-user"></i> Paciente:</strong>
+			<strong><i class="fas fa-user"></i> Doctor:</strong>
 			<%=session.getAttribute("nombres")%>
 			<%=session.getAttribute("apellidos")%>
 		</div>
 
 		<div class="mt-3 mb-3 d-flex">
-			<a href="<%=request.getContextPath()%>/CitaServlet?accion=listarPorPac"
+			<a href="<%=request.getContextPath()%>/CitaServlet?accion=nuevaCita"
 				class="btn btn-light me-2"> <i class="bi bi-calendar-plus"></i>
 				Mis Citas
 			</a> <a href="<%=request.getContextPath()%>/login.jsp"

@@ -11,102 +11,148 @@ public class Cita {
     private Integer idPaciente;
     private Integer idDoctor;
     private Integer idRecepcion;
+    private String nombreDoctor;
+    private String nombrePaciente;
+
 
     public Cita() {
     }
 
-    public Cita(int idCita, String fechaRegistrada, String horaRegistrada,
-                String fechaProgramada, String horaProgramada, String estado,
-                String descripcion, Integer idPaciente, Integer idDoctor, Integer idRecepcion) {
-        this.idCita = idCita;
-        this.fechaRegistrada = fechaRegistrada;
-        this.horaRegistrada = horaRegistrada;
-        this.fechaProgramada = fechaProgramada;
-        this.horaProgramada = horaProgramada;
-        this.estado = estado;
-        this.descripcion = descripcion;
-        this.idPaciente = idPaciente;
-        this.idDoctor = idDoctor;
-        this.idRecepcion = idRecepcion;
-    }
+	public Cita(int idCita, String fechaRegistrada, String horaRegistrada, String fechaProgramada,
+			String horaProgramada, String estado, String descripcion, Integer idPaciente, Integer idDoctor,
+			Integer idRecepcion, String nombreDoctor, String nombrePaciente) {
+		super();
+		this.idCita = idCita;
+		this.fechaRegistrada = fechaRegistrada;
+		this.horaRegistrada = horaRegistrada;
+		this.fechaProgramada = fechaProgramada;
+		this.horaProgramada = horaProgramada;
+		this.estado = estado;
+		this.descripcion = descripcion;
+		this.idPaciente = idPaciente;
+		this.idDoctor = idDoctor;
+		this.idRecepcion = idRecepcion;
+		this.nombreDoctor = nombreDoctor;
+		this.nombrePaciente = nombrePaciente;
+	}
 
-    public int getIdCita() {
-        return idCita;
-    }
+	public int getIdCita() {
+		return idCita;
+	}
 
-    public void setIdCita(int idCita) {
-        this.idCita = idCita;
-    }
 
-    public String getFechaRegistrada() {
-        return fechaRegistrada;
-    }
+	public void setIdCita(int idCita) {
+		this.idCita = idCita;
+	}
 
-    public void setFechaRegistrada(String fechaRegistrada) {
-        this.fechaRegistrada = fechaRegistrada;
-    }
 
-    public String getHoraRegistrada() {
-        return horaRegistrada;
-    }
+	public String getFechaRegistrada() {
+		return fechaRegistrada;
+	}
 
-    public void setHoraRegistrada(String horaRegistrada) {
-        this.horaRegistrada = horaRegistrada;
-    }
 
-    public String getFechaProgramada() {
-        return fechaProgramada;
-    }
+	public void setFechaRegistrada(String fechaRegistrada) {
+		this.fechaRegistrada = fechaRegistrada;
+	}
 
-    public void setFechaProgramada(String fechaProgramada) {
-        this.fechaProgramada = fechaProgramada;
-    }
 
-    public String getHoraProgramada() {
-        return horaProgramada;
-    }
+	public String getHoraRegistrada() {
+		return horaRegistrada;
+	}
 
-    public void setHoraProgramada(String horaProgramada) {
-        this.horaProgramada = horaProgramada;
-    }
 
-    public String getEstado() {
-        return estado;
-    }
+	public void setHoraRegistrada(String horaRegistrada) {
+		this.horaRegistrada = horaRegistrada;
+	}
 
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
 
-    public String getDescripcion() {
-        return descripcion;
-    }
+	public String getFechaProgramada() {
+		return fechaProgramada;
+	}
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
 
-    public Integer getIdPaciente() {
-        return idPaciente;
-    }
+	public void setFechaProgramada(String fechaProgramada) {
+		this.fechaProgramada = fechaProgramada;
+	}
 
-    public void setIdPaciente(Integer idPaciente) {
-        this.idPaciente = idPaciente;
-    }
 
-    public Integer getIdDoctor() {
-        return idDoctor;
-    }
+	public String getHoraProgramada() {
+		return horaProgramada;
+	}
 
-    public void setIdDoctor(Integer idDoctor) {
-        this.idDoctor = idDoctor;
-    }
 
-    public Integer getIdRecepcion() {
-        return idRecepcion;
-    }
+	public void setHoraProgramada(String horaProgramada) {
+		this.horaProgramada = horaProgramada;
+	}
 
-    public void setIdRecepcion(Integer idRecepcion) {
-        this.idRecepcion = idRecepcion;
-    }
+
+	public String getEstado() {
+		return estado;
+	}
+
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+
+	public Integer getIdPaciente() {
+		return idPaciente;
+	}
+
+
+	public void setIdPaciente(Integer idPaciente) {
+		this.idPaciente = idPaciente;
+	}
+
+
+	public Integer getIdDoctor() {
+		return idDoctor;
+	}
+
+
+	public void setIdDoctor(Integer idDoctor) {
+		this.idDoctor = idDoctor;
+	}
+
+
+	public Integer getIdRecepcion() {
+		return idRecepcion;
+	}
+
+
+	public void setIdRecepcion(Integer idRecepcion) {
+		this.idRecepcion = idRecepcion;
+	}
+
+
+	public String getNombreDoctor() {
+		return nombreDoctor;
+	}
+
+
+	public void setNombreDoctor(String nombreDoctor) {
+		this.nombreDoctor = nombreDoctor;
+	}
+
+
+	public String getNombrePaciente() {
+		return nombrePaciente;
+	}
+
+
+	public void setNombrePaciente(String nombrePaciente) {
+		this.nombrePaciente = nombrePaciente;
+	}
+
 }

@@ -1,9 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8" />
+<meta charset="UTF-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 <title>Login</title>
 <link href="data:image/x-icon;base64," rel="icon" type="image/x-icon" />

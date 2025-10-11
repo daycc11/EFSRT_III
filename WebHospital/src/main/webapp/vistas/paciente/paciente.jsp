@@ -75,15 +75,15 @@
     </div>
     
     <div class="welcome-text text-end">
-    	<strong><i class="fas fa-user-graduate"></i> Estudiante:</strong> <%= session.getAttribute("nombres") %> <%= session.getAttribute("apellidos") %>
+    	<strong><i class="fas fa-user-graduate"></i> Paciente:</strong> <%= session.getAttribute("nombres") %> <%= session.getAttribute("apellidos") %>
 	</div>
 
     <div class="row mt-4 g-3">
         <div class="col-md-6">
             <div class="card card-option text-center p-3">
-                <i class="bi bi-journal-text card-icon"></i>
-                <h6 class="card-title">Reporte de Incidencias</h6>
-                <a href="<%=request.getContextPath()%>/IncidenciaServlet?accion=listarEst" class="stretched-link"></a>
+                <i class="bi bi-calendar-plus card-icon"></i>
+                <h6 class="card-title">Mis Citas</h6>
+                <a href="<%=request.getContextPath()%>/CitaServlet?accion=listarPorPac" class="stretched-link"></a>
             </div>
         </div>
 
