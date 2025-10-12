@@ -77,7 +77,6 @@ body {
 					rol para continuar</p>
 			</div>
 
-			<!-- Botones de rol -->
 			<div class="space-y-6">
 				<button
 					class="w-full flex flex-col items-center justify-center py-6 px-4 bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200"

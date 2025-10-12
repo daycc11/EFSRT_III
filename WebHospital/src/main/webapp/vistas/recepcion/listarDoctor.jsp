@@ -8,8 +8,6 @@ if (idRecepcion == null) {
 	response.sendRedirect(request.getContextPath() + "/vistas/logeo/loginRec.jsp");
 	return;
 }
-
-List<Doctor> doctores = (List<Doctor>) request.getAttribute("doctores");
 %>
 <!DOCTYPE html>
 <html lang="es">
@@ -96,28 +94,28 @@ body {
 		</div>
 
 		<div class="welcome-text mb-3">
-			<strong><i class="bi bi-person-badge-fill"></i>
-				Recepcionista:</strong>
-			<%=sesion.getAttribute("nombres")%>
-			<%=sesion.getAttribute("apellidos")%>
+			<strong><i class="bi bi-person-badge-fill"></i> Recepcionista:</strong>
+			<%=sesion.getAttribute("nombres")%> <%=sesion.getAttribute("apellidos")%>
 		</div>
 
 		<div class="mb-4 d-flex flex-wrap gap-2">
 			<a href="<%=request.getContextPath()%>/CitaServlet?accion=listar"
 				class="btn btn-light"> <i class="bi bi-calendar-check"></i>
 				Reporte Citas
-			</a> <a href="<%=request.getContextPath()%>/DoctorServlet?accion=listar"
+			</a> 
+			<a href="<%=request.getContextPath()%>/DoctorServlet?accion=listar"
 				class="btn btn-light"> <i class="bi bi-person-badge"></i>
 				Reporte Doctores
-			</a> <a
-				href="<%=request.getContextPath()%>/PacienteServlet?accion=listar"
+			</a> 
+			<a href="<%=request.getContextPath()%>/PacienteServlet?accion=listar"
 				class="btn btn-light"> <i class="bi bi-people"></i> Reporte
 				Pacientes
-			</a> <a href="<%=request.getContextPath()%>/CitaServlet?accion=registrar"
+			</a> 
+			<a href="<%=request.getContextPath()%>/CitaServlet?accion=add"
 				class="btn btn-light"> <i class="bi bi-pencil-square"></i>
 				Registrar Citas
-			</a> <a
-				href="<%=request.getContextPath()%>/vistas/recepcion/loginRec.jsp"
+			</a> 
+			<a href="<%=request.getContextPath()%>/vistas/recepcion/loginRec.jsp"
 				class="btn btn-light text-danger"> <i
 				class="bi bi-box-arrow-right text-danger"></i> Cerrar sesión
 			</a>
@@ -131,6 +129,7 @@ body {
 
 		<div class="table-responsive">
 			<%
+			List<Doctor> doctores = (List<Doctor>) request.getAttribute("doctores");
 			if (doctores != null && !doctores.isEmpty()) {
 			%>
 			<table class="table table-bordered text-center">
@@ -143,7 +142,7 @@ body {
 						<th>Correo</th>
 						<th>Teléfono</th>
 						<th>Especialidad</th>
-						<th>Estado</th>
+						<th>Nro. Colegiatura</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -158,6 +157,7 @@ body {
 						<td><%=d.getCorreo()%></td>
 						<td><%=d.getTelefono()%></td>
 						<td><%=d.getEspecialidad()%></td>
+						<td><%=d.getNroColegiatura()%></td>
 					</tr>
 					<%
 					}

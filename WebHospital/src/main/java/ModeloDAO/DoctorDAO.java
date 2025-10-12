@@ -27,6 +27,8 @@ public class DoctorDAO implements DoctorCRUD {
                 d.setApellidos(rs.getString("apellidos"));
                 d.setCorreo(rs.getString("correo"));
                 d.setEspecialidad(rs.getString("especialidad"));
+                d.setTelefono(rs.getString("telefono"));
+                d.setNroColegiatura(rs.getString("nroColegiatura"));
                 d.setContrasenia(rs.getString("contrasenia"));
                 lista.add(d);
             }
@@ -53,6 +55,8 @@ public class DoctorDAO implements DoctorCRUD {
                 d.setApellidos(rs.getString("apellidos"));
                 d.setCorreo(rs.getString("correo"));
                 d.setEspecialidad(rs.getString("especialidad"));
+                d.setTelefono(rs.getString("telefono"));
+                d.setNroColegiatura(rs.getString("nroColegiatura"));
                 lista.add(d);
             }
         } catch (Exception e) {
@@ -77,6 +81,8 @@ public class DoctorDAO implements DoctorCRUD {
                 d.setApellidos(rs.getString("apellidos"));
                 d.setCorreo(rs.getString("correo"));
                 d.setEspecialidad(rs.getString("especialidad"));
+                d.setTelefono(rs.getString("telefono"));
+                d.setNroColegiatura(rs.getString("nroColegiatura"));
                 d.setContrasenia(rs.getString("contrasenia"));
             }
         } catch (Exception e) {

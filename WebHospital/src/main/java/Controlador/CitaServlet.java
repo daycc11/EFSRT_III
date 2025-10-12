@@ -12,7 +12,11 @@ import java.io.IOException;
 import java.util.List;
 
 import Modelo.Cita;
+import Modelo.Doctor;
+import Modelo.Paciente;
 import ModeloDAO.CitaDAO;
+import ModeloDAO.DoctorDAO;
+import ModeloDAO.PacienteDAO;
 
 @WebServlet("/CitaServlet")
 public class CitaServlet extends HttpServlet {
@@ -92,6 +96,14 @@ public class CitaServlet extends HttpServlet {
 				break;
 
 			case "add":
+		        DoctorDAO doctorDAO = new DoctorDAO();
+		        PacienteDAO pacienteDAO = new PacienteDAO();
+
+		        List<Doctor> listaDoctores = doctorDAO.listar();
+		        List<Paciente> listaPacientes = pacienteDAO.listar();
+
+		        request.setAttribute("listaDoctores", listaDoctores);
+		        request.setAttribute("listaPacientes", listaPacientes);
 				acceso = registrar;
 				break;
 

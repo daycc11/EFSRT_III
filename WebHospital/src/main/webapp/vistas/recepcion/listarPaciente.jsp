@@ -8,9 +8,6 @@ if (idRecepcion == null) {
 	response.sendRedirect(request.getContextPath() + "/vistas/logeo/loginRec.jsp");
 	return;
 }
-
-// Lista de pacientes desde el request (previamente cargados en un servlet)
-List<Paciente> pacientes = (List<Paciente>) request.getAttribute("pacientes");
 %>
 <!DOCTYPE html>
 <html lang="es">
@@ -107,18 +104,20 @@ body {
 			<a href="<%=request.getContextPath()%>/CitaServlet?accion=listar"
 				class="btn btn-light"> <i class="bi bi-calendar-check"></i>
 				Reporte Citas
-			</a> <a href="<%=request.getContextPath()%>/DoctorServlet?accion=listar"
+			</a> 
+			<a href="<%=request.getContextPath()%>/DoctorServlet?accion=listar"
 				class="btn btn-light"> <i class="bi bi-person-badge"></i>
 				Reporte Doctores
-			</a> <a
-				href="<%=request.getContextPath()%>/PacienteServlet?accion=listar"
+			</a> 
+			<a href="<%=request.getContextPath()%>/PacienteServlet?accion=listar"
 				class="btn btn-light"> <i class="bi bi-people"></i> Reporte
 				Pacientes
-			</a> <a href="<%=request.getContextPath()%>/CitaServlet?accion=registrar"
+			</a> 
+			<a href="<%=request.getContextPath()%>/CitaServlet?accion=add"
 				class="btn btn-light"> <i class="bi bi-pencil-square"></i>
 				Registrar Citas
-			</a> <a
-				href="<%=request.getContextPath()%>/vistas/recepcion/loginRec.jsp"
+			</a> 
+			<a href="<%=request.getContextPath()%>/vistas/recepcion/loginRec.jsp"
 				class="btn btn-light text-danger"> <i
 				class="bi bi-box-arrow-right text-danger"></i> Cerrar sesión
 			</a>
@@ -132,6 +131,7 @@ body {
 
 		<div class="table-responsive">
 			<%
+			List<Paciente> pacientes = (List<Paciente>) request.getAttribute("pacientes");
 			if (pacientes != null && !pacientes.isEmpty()) {
 			%>
 			<table class="table table-bordered text-center">

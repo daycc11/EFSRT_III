@@ -15,11 +15,12 @@ public class CitaDAO implements CitaCRUD {
     public List<Cita> listar() {
         List<Cita> lista = new ArrayList<>();
         String sql = "SELECT c.*, " +
-                     "d.nombres AS nombreDoctor, d.apellidos AS apellidoDoctor, " +
-                     "p.nombres AS nombrePaciente, p.apellidos AS apellidoPaciente " +
-                     "FROM Cita c " +
-                     "INNER JOIN Doctor d ON c.idDoctor = d.idDoctor " +
-                     "INNER JOIN Paciente p ON c.idPaciente = p.idPaciente";
+                "d.nombres AS nombreDoctor, d.apellidos AS apellidoDoctor, " +
+                "p.nombres AS nombrePaciente, p.apellidos AS apellidoPaciente " +
+                "FROM Cita c " +
+                "INNER JOIN Doctor d ON c.idDoctor = d.idDoctor " +
+                "INNER JOIN Paciente p ON c.idPaciente = p.idPaciente " +
+                "ORDER BY c.fechaRegistrada DESC, c.horaRegistrada DESC";
         try {
             con = MySQLConexion.getConexion();
             ps = con.prepareStatement(sql);
@@ -42,7 +43,7 @@ public class CitaDAO implements CitaCRUD {
                      "FROM Cita c " +
                      "INNER JOIN Doctor d ON c.idDoctor = d.idDoctor " +
                      "INNER JOIN Paciente p ON c.idPaciente = p.idPaciente " +
-                     "ORDER BY c.fechaProgramada DESC, c.horaProgramada DESC " +
+                     "ORDER BY c.fechaRegistrada DESC, c.horaRegistrada DESC " +
                      "LIMIT ? OFFSET ?";
         try {
             con = MySQLConexion.getConexion();

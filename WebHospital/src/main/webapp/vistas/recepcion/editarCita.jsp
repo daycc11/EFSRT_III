@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="Modelo.Cita" %>
 <%
-Cita inc = (Cita) request.getAttribute("incidencia");
+    Cita cita = (Cita) request.getAttribute("cita");
 %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Editar Incidencia</title>
+    <title>Editar Cita</title>
     <link rel="icon" href="<%=request.getContextPath()%>/img/icono.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
@@ -48,7 +48,7 @@ Cita inc = (Cita) request.getAttribute("incidencia");
 <div class="container mt-5">
 
     <div class="titulo-seccion">
-        <h3><i class="bi bi-pencil-square"></i> Editar Incidencia</h3>
+        <h3><i class="bi bi-pencil-square"></i> Editar Cita</h3>
     </div>
 
     <% if (request.getAttribute("mensajeExito") != null) { %>
@@ -57,7 +57,7 @@ Cita inc = (Cita) request.getAttribute("incidencia");
         </div>
         <script>
             setTimeout(() => {
-                window.location.href = '<%= request.getContextPath() %>/IncidenciaServlet?accion=listar';
+                window.location.href = '<%= request.getContextPath() %>/CitaServlet?accion=listar';
             }, 3000);
         </script>
     <% } %>
@@ -68,61 +68,68 @@ Cita inc = (Cita) request.getAttribute("incidencia");
         </div>
     <% } %>
 
-    <form action="<%=request.getContextPath()%>/IncidenciaServlet" method="post">
+    <form action="<%=request.getContextPath()%>/CitaServlet" method="post">
         <input type="hidden" name="accion" value="Actualizar">
-        <input type="hidden" name="idIncidencia" value="<%= inc.getIdIncidencia() %>">
+        <input type="hidden" name="idCita" value="<%= cita.getIdCita() %>">
 
         <div class="mb-3">
-            <label class="form-label"><strong>ID Incidencia</strong></label>
-            <input type="text" class="form-control" value="<%= inc.getIdIncidencia() %>" readonly>
+            <label class="form-label"><strong>ID Cita</strong></label>
+            <input type="text" class="form-control" value="<%= cita.getIdCita() %>" readonly>
         </div>
 
-        <div class="mb-3">
-            <label class="form-label"><strong>Fecha</strong></label>
-            <input type="text" class="form-control" value="<%= inc.getFecha() %>" readonly>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label class="form-label"><strong>Fecha Registrada</strong></label>
+                <input type="date" class="form-control" name="fechaRegistrada" value="<%= cita.getFechaRegistrada() %>" readonly>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label"><strong>Hora Registrada</strong></label>
+                <input type="time" class="form-control" name="horaRegistrada" value="<%= cita.getHoraRegistrada() %>" readonly>
+            </div>
         </div>
 
-        <div class="mb-3">
-            <label class="form-label"><strong>Tipo</strong></label>
-            <input type="text" class="form-control" name="tipo" value="<%= inc.getTipo() %>" required>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label class="form-label"><strong>Fecha Programada</strong></label>
+                <input type="date" class="form-control" name="fechaProgramada" value="<%= cita.getFechaProgramada() %>" required>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label"><strong>Hora Programada</strong></label>
+                <input type="time" class="form-control" name="horaProgramada" value="<%= cita.getHoraProgramada() %>" required>
+            </div>
         </div>
 
         <div class="mb-3">
             <label class="form-label"><strong>Descripción</strong></label>
-            <textarea class="form-control" name="descripcion" rows="3" required><%= inc.getDescripcion() %></textarea>
+            <textarea class="form-control" name="descripcion" rows="3" required><%= cita.getDescripcion() %></textarea>
         </div>
 
         <div class="mb-3">
             <label class="form-label"><strong>Estado</strong></label>
             <select class="form-select" name="estado" required>
-                <option value="Sin resolver" <%= "Sin resolver".equals(inc.getEstado()) ? "selected" : "" %>>Sin resolver</option>
-                <option value="Resuelto" <%= "Resuelto".equals(inc.getEstado()) ? "selected" : "" %>>Resuelto</option>
-                <option value="Cancelado" <%= "Cancelado".equals(inc.getEstado()) ? "selected" : "" %>>Cancelado</option>
+                <option value="Pendiente" <%= "Pendiente".equals(cita.getEstado()) ? "selected" : "" %>>Pendiente</option>
+                <option value="Atendida" <%= "Atendida".equals(cita.getEstado()) ? "selected" : "" %>>Atendida</option>
+                <option value="Cancelada" <%= "Cancelada".equals(cita.getEstado()) ? "selected" : "" %>>Cancelada</option>
             </select>
         </div>
 
-        <div class="mb-3">
-            <label class="form-label"><strong>Sede</strong></label>
-            <input type="text" class="form-control" name="sede" value="<%= inc.getSede() %>" required>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label"><strong>Código Aula</strong></label>
-            <input type="text" class="form-control" name="codigoAula" value="<%= inc.getCodigoAula() %>" required>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label"><strong>ID Estudiante</strong></label>
-            <input type="number" class="form-control" name="idEstudiante" value="<%= inc.getIdEstudiante() %>" required>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label"><strong>ID Docente</strong></label>
-            <input type="number" class="form-control" name="idDocente" value="<%= inc.getIdDocente() %>" required>
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label class="form-label"><strong>ID Paciente</strong></label>
+                <input type="number" class="form-control" name="idPaciente" value="<%= cita.getIdPaciente() %>" required>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label"><strong>ID Doctor</strong></label>
+                <input type="number" class="form-control" name="idDoctor" value="<%= cita.getIdDoctor() %>" required>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label"><strong>ID Recepcionista</strong></label>
+                <input type="number" class="form-control" name="idRecepcion" value="<%= cita.getIdRecepcion() %>" required>
+            </div>
         </div>
 
         <div class="d-flex justify-content-between mt-4 mb-5">
-            <a href="<%=request.getContextPath()%>/IncidenciaServlet?accion=listar" class="btn btn-secondary">
+            <a href="<%=request.getContextPath()%>/CitaServlet?accion=listar" class="btn btn-secondary">
                 <i class="bi bi-x-circle"></i> Cancelar
             </a>
             <button type="submit" class="btn btn-primary">

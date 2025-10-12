@@ -90,8 +90,7 @@ body {
 
 		<div class="welcome-text">
 			<strong><i class="fas fa-user-md"></i> Doctor:</strong>
-			<%=session.getAttribute("nombres")%>
-			<%=session.getAttribute("apellidos")%>
+			<%=session.getAttribute("nombres")%> <%=session.getAttribute("apellidos")%>
 		</div>
 
 		<div class="mt-3 mb-3 d-flex">
