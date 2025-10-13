@@ -43,16 +43,16 @@ public class PacienteDAO implements PacienteCRUD {
     }
 
     @Override
-    public List<Paciente> buscarPorDNI(String dni) {
-        List<Paciente> lista = new ArrayList<>();
-        String sql = "SELECT * FROM Paciente WHERE dni LIKE ?";
+    public Paciente buscarPorDNI(String dni) {
+        Paciente pac = null;
+        String sql = "SELECT * FROM Paciente WHERE dni = ?";
         try {
             con = MySQLConexion.getConexion();
             ps = con.prepareStatement(sql);
-            ps.setString(1, "%" + dni + "%");
+            ps.setString(1, dni);
             rs = ps.executeQuery();
-            while (rs.next()) {
-                Paciente pac = new Paciente();
+            if (rs.next()) {
+                pac = new Paciente();
                 pac.setIdPaciente(rs.getInt("idPaciente"));
                 pac.setDni(rs.getString("dni"));
                 pac.setNombres(rs.getString("nombres"));
@@ -61,12 +61,12 @@ public class PacienteDAO implements PacienteCRUD {
                 pac.setTelefono(rs.getString("telefono"));
                 pac.setDireccion(rs.getString("direccion"));
                 pac.setFechaNacimiento(rs.getString("fechaNacimiento"));
-                lista.add(pac);
+                pac.setContrasenia(rs.getString("contrasenia"));
             }
         } catch (Exception e) {
-            System.out.println("❌ Error al buscar paciente por DNI: " + e.getMessage());
+            System.out.println("Error al buscar paciente por DNI: " + e.getMessage());
         }
-        return lista;
+        return pac;
     }
 
     @Override

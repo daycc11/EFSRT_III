@@ -18,6 +18,7 @@ public class PacienteServlet extends HttpServlet {
 
     String listarRecepcion = "/vistas/recepcion/listarPaciente.jsp";
     String listarDoctor = "/vistas/doctor/listarPaciente.jsp";
+    String agregar = "/vistas/paciente/crearCuentaPac.jsp";
 
     PacienteDAO dao = new PacienteDAO();
 
@@ -36,6 +37,10 @@ public class PacienteServlet extends HttpServlet {
                     request.setAttribute("pacientes", lista);
                     acceso = (origen != null && origen.equals("doctor")) ? listarDoctor : listarRecepcion;
                     break;
+                    
+                case "add":
+                	acceso = agregar;
+                	break;
 
                 case "buscar":
                     String filtro = request.getParameter("filtro");
@@ -44,11 +49,14 @@ public class PacienteServlet extends HttpServlet {
                         request.setAttribute("mensajeError", "DNI incorrecto. Debe tener 8 dígitos.");
                         request.setAttribute("pacientes", new ArrayList<>());
                     } else {
-                        List<Paciente> listaFiltrada = dao.buscarPorDNI(filtro);
-                        request.setAttribute("pacientes", listaFiltrada);
-                        if (listaFiltrada.isEmpty()) {
+                        Paciente pacienteEncontrado = dao.buscarPorDNI(filtro);
+                        List<Paciente> listaFiltrada = new ArrayList<>();
+                        if (pacienteEncontrado != null) {
+                            listaFiltrada.add(pacienteEncontrado);
+                        } else {
                             request.setAttribute("mensajeError", "DNI no encontrado.");
                         }
+                        request.setAttribute("pacientes", listaFiltrada);
                     }
 
                     request.setAttribute("filtro", filtro);
@@ -64,6 +72,42 @@ public class PacienteServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doGet(request, response);
+
+        String accion = request.getParameter("accion");
+
+        if ("registrar".equalsIgnoreCase(accion)) {
+
+            Paciente p = new Paciente();
+            p.setDni(request.getParameter("dni"));
+            p.setNombres(request.getParameter("nombres"));
+            p.setApellidos(request.getParameter("apellidos"));
+            p.setCorreo(request.getParameter("correo"));
+            p.setTelefono(request.getParameter("telefono"));
+            p.setDireccion(request.getParameter("direccion"));
+            p.setFechaNacimiento(request.getParameter("fechaNacimiento"));
+            p.setContrasenia(request.getParameter("password"));
+
+            PacienteDAO dao = new PacienteDAO();
+
+            Paciente existente = dao.buscarPorDNI(p.getDni());
+            if (existente != null) {
+                request.setAttribute("error", "El DNI ingresado ya se encuentra registrado. Intenta iniciar sesión.");
+                request.getRequestDispatcher("/vistas/paciente/crearCuentaPac.jsp").forward(request, response);
+                return;
+            }
+
+            boolean registrado = dao.add(p);
+
+            if (registrado) {
+                request.setAttribute("mensaje", "Cuenta registrada exitosamente!");
+            } else {
+                request.setAttribute("error", "Hubo un error al registrar la cuenta.");
+            }
+
+            request.getRequestDispatcher("/vistas/paciente/crearCuentaPac.jsp").forward(request, response);
+        } else {
+            doGet(request, response);
+        }
     }
+
 }

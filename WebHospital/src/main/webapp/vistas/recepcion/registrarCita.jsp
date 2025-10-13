@@ -5,6 +5,8 @@
 <%
     List<Doctor> listaDoctores = (List<Doctor>) request.getAttribute("listaDoctores");
     List<Paciente> listaPacientes = (List<Paciente>) request.getAttribute("listaPacientes");
+    String mensajeExito = (String) request.getAttribute("mensajeExito");
+    String mensajeError = (String) request.getAttribute("mensajeError");
 %>
 <!DOCTYPE html>
 <html lang="es">
@@ -12,14 +14,12 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Registrar Cita</title>
-
-<link href="<%=request.getContextPath()%>/img/icono.png" rel="icon" type="image/x-icon"/>
+<link rel="icon" href="<%=request.getContextPath()%>/img/iconoHospital.png" type="image/x-icon">
 <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
-
 <script>
 tailwind.config = {
   darkMode: "class",
@@ -37,11 +37,7 @@ tailwind.config = {
   }
 }
 </script>
-<style>
-body {
-  min-height: max(884px, 100dvh);
-}
-</style>
+<style> body { min-height: max(884px, 100dvh); } </style>
 </head>
 
 <body class="bg-background-light dark:bg-background-dark font-display flex items-center justify-center min-h-screen bg-cover bg-center"
@@ -56,10 +52,16 @@ body {
       <p class="text-gray-600 dark:text-gray-400 mt-2">Complete los datos para agendar una nueva cita</p>
     </div>
 
-    <form class="space-y-5 mt-6" action="<%=request.getContextPath()%>/CitaServlet" method="post">
-      <input type="hidden" name="accion" value="Registrar">
+    <% if (mensajeExito != null) { %>
+        <div class="mt-4 p-3 bg-green-100 text-green-800 rounded-lg"><%=mensajeExito%></div>
+    <% } %>
+    <% if (mensajeError != null) { %>
+        <div class="mt-4 p-3 bg-red-100 text-red-800 rounded-lg"><%=mensajeError%></div>
+    <% } %>
 
-      <!-- Paciente -->
+    <form class="space-y-5 mt-6" action="<%=request.getContextPath()%>/CitaServlet" method="post">
+      <input type="hidden" name="accion" value="Guardar">
+
       <div class="relative">
         <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">person</span>
         <select name="idPaciente" required
@@ -73,7 +75,6 @@ body {
         </select>
       </div>
 
-      <!-- Doctor -->
       <div class="relative">
         <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">stethoscope</span>
         <select name="idDoctor" required
@@ -87,21 +88,18 @@ body {
         </select>
       </div>
 
-      <!-- Fecha programada -->
       <div class="relative">
         <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">event</span>
         <input name="fechaProgramada" type="date" required
                class="w-full pl-10 pr-4 py-3 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white focus:ring-2 focus:ring-primary"/>
       </div>
 
-      <!-- Hora programada -->
       <div class="relative">
         <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">schedule</span>
         <input name="horaProgramada" type="time" required
                class="w-full pl-10 pr-4 py-3 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white focus:ring-2 focus:ring-primary"/>
       </div>
 
-      <!-- Descripción -->
       <div class="relative">
         <span class="material-symbols-outlined absolute left-3 top-4 text-gray-400">description</span>
         <textarea name="descripcion" rows="3" placeholder="Motivo de la cita o detalles adicionales" required

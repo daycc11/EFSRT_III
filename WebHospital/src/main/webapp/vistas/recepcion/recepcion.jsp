@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Recepcion</title>
-<link rel="icon" href="<%=request.getContextPath()%>/img/icono.png"
+<link rel="icon" href="<%=request.getContextPath()%>/img/iconoHospital.png"
 	type="image/x-icon">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
@@ -122,7 +122,7 @@ body {
 					<i class="bi bi-pencil-square card-icon"></i>
 					<h6 class="card-title">Registrar Citas</h6>
 					<a
-						href="<%=request.getContextPath()%>/CitaServlet?accion=registrar"
+						href="<%=request.getContextPath()%>/CitaServlet?accion=add"
 						class="stretched-link"></a>
 				</div>
 			</div>

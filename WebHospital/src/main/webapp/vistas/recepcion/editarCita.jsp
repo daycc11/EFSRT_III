@@ -8,7 +8,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Editar Cita</title>
-    <link rel="icon" href="<%=request.getContextPath()%>/img/icono.png" type="image/x-icon">
+    <link rel="icon" href="<%=request.getContextPath()%>/img/iconoHospital.png"
+	type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
     <style>

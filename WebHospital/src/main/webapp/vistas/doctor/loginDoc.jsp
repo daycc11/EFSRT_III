@@ -9,8 +9,9 @@ String errorLogin = (String) request.getAttribute("errorLogin");
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Login Doctor</title>
-<link rel="icon" href="<%=request.getContextPath()%>/img/icono.png"
-	type="image/x-icon" />
+<link rel="icon"
+	href="<%=request.getContextPath()%>/img/iconoHospital.png"
+	type="image/x-icon">
 <script
 	src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com" rel="preconnect" />

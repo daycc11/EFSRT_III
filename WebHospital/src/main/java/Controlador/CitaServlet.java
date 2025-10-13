@@ -41,8 +41,7 @@ public class CitaServlet extends HttpServlet {
 			switch (action) {
 
 			case "listar":
-				List<Cita> lista = dao.listar();
-				request.setAttribute("citas", lista);
+				request.setAttribute("citas", dao.listar());
 				acceso = listar;
 				break;
 
@@ -52,14 +51,7 @@ public class CitaServlet extends HttpServlet {
 					response.sendRedirect(request.getContextPath() + "/vistas/paciente/loginPac.jsp");
 					return;
 				}
-				List<Cita> listaPaciente = dao.listarPorPac(idPacienteSesion);
-				System.out.println("ID paciente sesión: " + idPacienteSesion);
-				System.out.println("Citas encontradas: " + listaPaciente.size());
-
-				request.setAttribute("citas", listaPaciente);
-				if (listaPaciente.isEmpty()) {
-					request.setAttribute("mensaje", "No tienes citas registradas.");
-				}
+				request.setAttribute("citas", dao.listarPorPac(idPacienteSesion));
 				acceso = listarPorPac;
 				break;
 
@@ -69,68 +61,77 @@ public class CitaServlet extends HttpServlet {
 					response.sendRedirect(request.getContextPath() + "/vistas/doctor/loginDoc.jsp");
 					return;
 				}
-				List<Cita> listaDoctor = dao.listarPorDoc(idDoctorSesion);
-				System.out.println("ID doctor sesión: " + idDoctorSesion);
-				System.out.println("Citas encontradas: " + listaDoctor.size());
-
-				request.setAttribute("citas", listaDoctor);
-				if (listaDoctor.isEmpty()) {
-					request.setAttribute("mensaje", "No tienes citas registradas.");
-				}
+				request.setAttribute("citas", dao.listarPorDoc(idDoctorSesion));
 				acceso = listarPorDoc;
 				break;
 
 			case "listarPorEstado":
 				String estado = request.getParameter("estado");
-				List<Cita> listaEstado = dao.listarPorEstado(estado);
-				request.setAttribute("citas", listaEstado);
+				request.setAttribute("citas", dao.listarPorEstado(estado));
 				acceso = listar;
 				break;
 
 			case "buscarPorFecha":
 				String fechaBuscar = request.getParameter("fecha");
-				List<Cita> citasFecha = dao.buscarPorFecha(fechaBuscar);
-				request.setAttribute("citas", citasFecha);
+				request.setAttribute("citas", dao.buscarPorFecha(fechaBuscar));
 				request.setAttribute("fechaBuscar", fechaBuscar);
 				acceso = listar;
 				break;
 
 			case "add":
-		        DoctorDAO doctorDAO = new DoctorDAO();
-		        PacienteDAO pacienteDAO = new PacienteDAO();
-
-		        List<Doctor> listaDoctores = doctorDAO.listar();
-		        List<Paciente> listaPacientes = pacienteDAO.listar();
-
-		        request.setAttribute("listaDoctores", listaDoctores);
-		        request.setAttribute("listaPacientes", listaPacientes);
+				request.setAttribute("listaDoctores", new DoctorDAO().listar());
+				request.setAttribute("listaPacientes", new PacienteDAO().listar());
 				acceso = registrar;
 				break;
 
 			case "Guardar":
-				Cita citaNueva = new Cita();
-				citaNueva.setFechaRegistrada(request.getParameter("fechaRegistrada"));
-				citaNueva.setHoraRegistrada(request.getParameter("horaRegistrada"));
-				citaNueva.setFechaProgramada(request.getParameter("fechaProgramada"));
-				citaNueva.setHoraProgramada(request.getParameter("horaProgramada"));
-				citaNueva.setEstado(request.getParameter("estado"));
-				citaNueva.setDescripcion(request.getParameter("descripcion"));
-				citaNueva.setIdPaciente(Integer.parseInt(request.getParameter("idPaciente")));
-				citaNueva.setIdDoctor(Integer.parseInt(request.getParameter("idDoctor")));
-				citaNueva.setIdRecepcion(Integer.parseInt(request.getParameter("idRecepcion")));
-
-				if (dao.add(citaNueva)) {
-					request.setAttribute("mensajeExito", "Cita registrada correctamente.");
-				} else {
-					request.setAttribute("mensajeError", "Error al registrar la cita.");
+				Integer idRecepcion = (Integer) session.getAttribute("idRecepcion");
+				if (idRecepcion == null) {
+					request.setAttribute("mensajeError", "Debe iniciar sesión como recepcionista.");
+					request.setAttribute("listaDoctores", new DoctorDAO().listar());
+					request.setAttribute("listaPacientes", new PacienteDAO().listar());
+					acceso = registrar;
+					break;
 				}
+
+				String idPacienteStr = request.getParameter("idPaciente");
+				String idDoctorStr = request.getParameter("idDoctor");
+
+				if (idPacienteStr == null || idPacienteStr.isEmpty() || idDoctorStr == null || idDoctorStr.isEmpty()) {
+					request.setAttribute("mensajeError", "Debe seleccionar paciente y doctor.");
+					request.setAttribute("listaDoctores", new DoctorDAO().listar());
+					request.setAttribute("listaPacientes", new PacienteDAO().listar());
+					acceso = registrar;
+					break;
+				}
+
+				try {
+					Cita citaNueva = new Cita();
+					citaNueva.setFechaProgramada(request.getParameter("fechaProgramada"));
+					citaNueva.setHoraProgramada(request.getParameter("horaProgramada"));
+					citaNueva.setDescripcion(request.getParameter("descripcion"));
+					citaNueva.setIdPaciente(Integer.parseInt(idPacienteStr));
+					citaNueva.setIdDoctor(Integer.parseInt(idDoctorStr));
+					citaNueva.setIdRecepcion(idRecepcion);
+
+					if (dao.add(citaNueva)) {
+						request.setAttribute("mensajeExito", "Cita registrada correctamente.");
+					} else {
+						request.setAttribute("mensajeError", "Error al registrar la cita.");
+					}
+
+				} catch (NumberFormatException e) {
+					request.setAttribute("mensajeError", "ID de paciente o doctor inválido.");
+				}
+
+				request.setAttribute("listaDoctores", new DoctorDAO().listar());
+				request.setAttribute("listaPacientes", new PacienteDAO().listar());
 				acceso = registrar;
 				break;
 
 			case "edit":
 				int id = Integer.parseInt(request.getParameter("id"));
-				Cita citaEditar = dao.list(id);
-				request.setAttribute("cita", citaEditar);
+				request.setAttribute("cita", dao.list(id));
 				acceso = editar;
 				break;
 

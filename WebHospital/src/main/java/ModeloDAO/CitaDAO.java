@@ -158,19 +158,18 @@ public class CitaDAO implements CitaCRUD {
 
     @Override
     public boolean add(Cita c) {
-        String sql = "INSERT INTO Cita (fechaRegistrada, horaRegistrada, fechaProgramada, horaProgramada, estado, descripcion, idPaciente, idDoctor, idRecepcion) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Cita (fechaProgramada, horaProgramada, estado, descripcion, idPaciente, idDoctor, idRecepcion) " +
+                     "VALUES (?, ?, ?, ?, ?, ?, ?)";
         try {
             con = MySQLConexion.getConexion();
             ps = con.prepareStatement(sql);
-            ps.setString(1, c.getFechaRegistrada());
-            ps.setString(2, c.getHoraRegistrada());
-            ps.setString(3, c.getFechaProgramada());
-            ps.setString(4, c.getHoraProgramada());
-            ps.setString(5, c.getEstado());
-            ps.setString(6, c.getDescripcion());
-            ps.setInt(7, c.getIdPaciente());
-            ps.setInt(8, c.getIdDoctor());
-            ps.setInt(9, c.getIdRecepcion());
+            ps.setString(1, c.getFechaProgramada());
+            ps.setString(2, c.getHoraProgramada());
+            ps.setString(3, c.getEstado() != null ? c.getEstado() : "Pendiente");
+            ps.setString(4, c.getDescripcion());
+            ps.setInt(5, c.getIdPaciente());
+            ps.setInt(6, c.getIdDoctor());
+            ps.setInt(7, c.getIdRecepcion());
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
             System.out.println("Error al agregar Cita: " + e.getMessage());

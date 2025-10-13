@@ -14,7 +14,7 @@ if (idPacienteSesion == null) {
 <head>
 <meta charset="UTF-8">
 <title>Mis Citas Programadas</title>
-<link rel="icon" href="<%=request.getContextPath()%>/img/icono.png"
+<link rel="icon" href="<%=request.getContextPath()%>/img/iconoHospital.png"
 	type="image/x-icon">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"

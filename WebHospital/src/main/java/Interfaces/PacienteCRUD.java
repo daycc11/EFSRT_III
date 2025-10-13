@@ -9,5 +9,5 @@ public interface PacienteCRUD {
     boolean add(Paciente pac);
     boolean edit(Paciente pac);
     boolean delete(int id);
-    List<Paciente> buscarPorDNI(String dni);
+    Paciente buscarPorDNI(String dni);
 }

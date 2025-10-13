@@ -9,8 +9,8 @@ String errorLogin = (String) request.getAttribute("errorLogin");
 <meta charset="UTF-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 <title>Login Paciente</title>
-<link href="<%=request.getContextPath()%>/img/icono.png" rel="icon"
-	type="image/x-icon" />
+<link rel="icon" href="<%=request.getContextPath()%>/img/iconoHospital.png"
+	type="image/x-icon">
 <script
 	src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com" rel="preconnect" />
@@ -109,11 +109,22 @@ body {
 
 			<div class="mt-6 text-center">
 				<a
-					href="<%=request.getContextPath()%>/vistas/paciente/crearCuentaPac.jsp"
+					href="<%=request.getContextPath()%>/PacienteServlet?accion=add"
 					class="text-sm text-primary hover:underline"> ¿No tienes una
 					cuenta? Regístrate </a>
 			</div>
 		</form>
 	</div>
 </body>
+<% 
+String registro = request.getParameter("registro");
+if ("ok".equals(registro)) {
+%>
+  <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative text-center mt-4" role="alert">
+    <strong class="font-bold">¡Cuenta creada exitosamente!</strong>
+    <span class="block sm:inline">Ya puedes iniciar sesión.</span>
+  </div>
+<% 
+}
+%>
 </html>

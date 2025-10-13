@@ -14,10 +14,18 @@ if (idDoctorSesion == null) {
 <head>
 <meta charset="UTF-8">
 <title>Listado de Pacientes</title>
-<link rel="icon" href="<%=request.getContextPath()%>/img/icono.png" type="image/x-icon">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+<link rel="icon"
+	href="<%=request.getContextPath()%>/img/iconoHospital.png"
+	type="image/x-icon">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+	rel="stylesheet">
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+	rel="stylesheet">
 
 <style>
 body {
@@ -85,28 +93,35 @@ body {
 	<div class="container mt-4">
 
 		<div class="banner mb-3">
-			<img src="<%=request.getContextPath()%>/img/cibertec.png" alt="Banner">
+			<img src="<%=request.getContextPath()%>/img/cibertec.png"
+				alt="Banner">
 		</div>
 
 		<div class="welcome-text">
 			<strong><i class="fas fa-user-md"></i> Doctor:</strong>
-			<%=session.getAttribute("nombres")%> <%=session.getAttribute("apellidos")%>
+			<%=session.getAttribute("nombres")%>
+			<%=session.getAttribute("apellidos")%>
 		</div>
 
 		<div class="mt-3 mb-3 d-flex">
-			<a href="<%=request.getContextPath()%>/CitaServlet?accion=listarPorDoc" class="btn btn-light me-2">
-				<i class="bi bi-calendar-check"></i> Citas Proximas
-			</a>
-			<a href="<%=request.getContextPath()%>/PacienteServlet?accion=listar&origen=doctor" class="btn btn-light me-2">
-				<i class="bi bi-clipboard-data"></i> Reporte Pacientes
-			</a>
-			<a href="<%=request.getContextPath()%>/vistas/logeo/login.jsp" class="btn btn-light me-2">
-				<i class="bi bi-box-arrow-right text-danger"></i> Cerrar sesión
+			<a
+				href="<%=request.getContextPath()%>/CitaServlet?accion=listarPorDoc"
+				class="btn btn-light me-2"> <i class="bi bi-calendar-check"></i>
+				Citas Proximas
+			</a> <a
+				href="<%=request.getContextPath()%>/PacienteServlet?accion=listar&origen=doctor"
+				class="btn btn-light me-2"> <i class="bi bi-clipboard-data"></i>
+				Reporte Pacientes
+			</a> <a href="<%=request.getContextPath()%>/vistas/logeo/login.jsp"
+				class="btn btn-light me-2"> <i
+				class="bi bi-box-arrow-right text-danger"></i> Cerrar sesión
 			</a>
 		</div>
 
 		<div class="section-title text-center mb-4">
-			<h5><i class="bi bi-people"></i> Listado de Pacientes</h5>
+			<h5>
+				<i class="bi bi-people"></i> Listado de Pacientes
+			</h5>
 		</div>
 
 		<div class="table-responsive">
@@ -150,7 +165,8 @@ body {
 			} else {
 			%>
 			<div class="alert alert-info text-center mt-3">
-				<i class="bi bi-info-circle-fill"></i> No se encontraron pacientes registrados.
+				<i class="bi bi-info-circle-fill"></i> No se encontraron pacientes
+				registrados.
 			</div>
 			<%
 			}
@@ -159,6 +175,7 @@ body {
 
 	</div>
 
-	<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+	<script src="https://kit.fontawesome.com/a076d05399.js"
+		crossorigin="anonymous"></script>
 </body>
 </html>
