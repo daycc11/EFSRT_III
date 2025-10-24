@@ -83,6 +83,29 @@ public class CitaDAO implements CitaCRUD {
     public List<Cita> listarPorDoc(int idDoctor) {
         return listarPorCampo("c.idDoctor", idDoctor);
     }
+    
+    @Override
+    public boolean actualizarEstado(int idCita, String estado) {
+        String sql = "UPDATE Cita SET estado = ? WHERE idCita = ?";
+        try {
+            con = MySQLConexion.getConexion();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, estado);
+            ps.setInt(2, idCita);
+            int filasAfectadas = ps.executeUpdate();
+            return filasAfectadas > 0;
+        } catch (Exception e) {
+            System.out.println("Error al actualizar estado de Cita: " + e.getMessage());
+            return false;
+        } finally {
+            try {
+                if (ps != null) ps.close();
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     @Override
     public List<Cita> listarPorEstado(String estado) {

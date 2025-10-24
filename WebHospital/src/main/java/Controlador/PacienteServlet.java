@@ -91,7 +91,7 @@ public class PacienteServlet extends HttpServlet {
 
             Paciente existente = dao.buscarPorDNI(p.getDni());
             if (existente != null) {
-                request.setAttribute("error", "El DNI ingresado ya se encuentra registrado. Intenta iniciar sesión.");
+                request.setAttribute("error", "Ya se encuentra registrado. Intenta iniciar sesión.");
                 request.getRequestDispatcher("/vistas/paciente/crearCuentaPac.jsp").forward(request, response);
                 return;
             }

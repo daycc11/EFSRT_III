@@ -6,7 +6,8 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Crear Cuenta</title>
-<link rel="icon" href="<%=request.getContextPath()%>/img/iconoHospital.png"
+<link rel="icon"
+	href="<%=request.getContextPath()%>/img/iconoHospital.png"
 	type="image/x-icon">
 <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,6 +18,10 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
 	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+	integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <script>
 tailwind.config = {
@@ -40,6 +45,16 @@ tailwind.config = {
 body {
 	min-height: max(884px, 100dvh);
 }
+
+#toggler i {
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+#toggler.active i {
+  transform: scale(1.2) rotate(180deg);
+  color: #13a4ec;
+}
+
 </style>
 </head>
 
@@ -64,7 +79,7 @@ body {
 		if (request.getAttribute("mensaje") != null) {
 		%>
 		<div id="mensaje"
-			class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4">
+			class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4 mt-4">
 			<span class="block sm:inline"><%=request.getAttribute("mensaje")%></span>
 		</div>
 		<%
@@ -75,7 +90,7 @@ body {
 		if (request.getAttribute("error") != null) {
 		%>
 		<div id="mensaje"
-			class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
+			class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4 mt-4">
 			<span class="block sm:inline"><%=request.getAttribute("error")%></span>
 		</div>
 		<%
@@ -153,18 +168,25 @@ body {
 				<input name="fechaNacimiento" id="fechaNacimiento" type="date"
 					required title="Debe seleccionar una fecha de nacimiento"
 					class="w-full pl-10 pr-4 py-3 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white 
-                      focus:ring-2 focus:ring-primary" />
+                      border-transparent focus:ring-2 focus:ring-primary placeholder-gray-500 dark:placeholder-gray-400" />
 			</div>
 
 			<div class="relative">
 				<span
 					class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">lock</span>
+
 				<input name="password" id="password" type="password"
 					placeholder="Contraseña" maxlength="100" required
 					title="Máximo 100 caracteres"
-					class="w-full pl-10 pr-4 py-3 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white 
-                      border-transparent focus:ring-2 focus:ring-primary placeholder-gray-500 dark:placeholder-gray-400" />
+					class="w-full pl-10 pr-12 py-3 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white 
+      border-transparent focus:ring-2 focus:ring-primary placeholder-gray-500 dark:placeholder-gray-400" />
+
+				<span id="toggler"
+					class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 cursor-pointer transition-transform duration-200 ease-in-out transform hover:scale-110">
+					<i class="far fa-eye-slash"></i>
+				</span>
 			</div>
+
 
 			<button type="submit"
 				class="w-full py-3 mt-2 rounded-lg bg-primary text-white font-semibold hover:bg-primary/90 transition">
@@ -188,8 +210,24 @@ body {
           <%if (request.getAttribute("mensaje") != null) {%>
               window.location.href = "<%=request.getContextPath()%>/vistas/paciente/loginPac.jsp";
           <%}%>
-      }, 3000);
+      }, 5000);
   }
+  
+  const password = document.getElementById('password');
+  const toggler = document.getElementById('toggler');
+
+  toggler.addEventListener('click', function () {
+	  const icon = toggler.querySelector('i');
+	  const isHidden = password.type === 'password';
+
+	  password.type = isHidden ? 'text' : 'password';
+
+	  icon.classList.toggle('fa-eye-slash', !isHidden);
+	  icon.classList.toggle('fa-eye', isHidden);
+
+	  toggler.classList.toggle('active', isHidden);
+	});
+
   
   function validarFormulario() {
     const dni = document.getElementById('dni').value.trim();

@@ -14,7 +14,8 @@ if (idDoctorSesion == null) {
 <head>
 <meta charset="UTF-8">
 <title>Mis Citas Programadas</title>
-<link rel="icon" href="<%=request.getContextPath()%>/img/iconoHospital.png"
+<link rel="icon"
+	href="<%=request.getContextPath()%>/img/iconoHospital.png"
 	type="image/x-icon">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
@@ -34,20 +35,23 @@ body {
 
 .banner {
 	width: 100%;
-	height: 140px;
+	height: 200px;
 	overflow: hidden;
 	display: flex;
 	align-items: center;
+	justify-content: center;
 	background-color: #ffffff;
 	border-radius: 12px;
 	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-	padding: 0.5rem 1rem;
+	padding: 0;
 }
 
 .banner img {
-	height: 100%;
 	width: 100%;
-	object-fit: contain;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+	display: block;
 }
 
 .welcome-text {
@@ -91,13 +95,14 @@ body {
 	<div class="container mt-4">
 
 		<div class="banner mb-3">
-			<img src="<%=request.getContextPath()%>/img/cibertec.png"
+			<img src="<%=request.getContextPath()%>/img/banner.jpeg"
 				alt="Banner">
 		</div>
 
 		<div class="welcome-text">
 			<strong><i class="fas fa-user-md"></i> Doctor:</strong>
-			<%=session.getAttribute("nombres")%> <%=session.getAttribute("apellidos")%>
+			<%=session.getAttribute("nombres")%>
+			<%=session.getAttribute("apellidos")%>
 		</div>
 
 		<div class="mt-3 mb-3 d-flex">
@@ -130,7 +135,6 @@ body {
 			<table class="table table-bordered text-center">
 				<thead class="thead-azul-oscuro">
 					<tr>
-						<th>ID</th>
 						<th>Paciente</th>
 						<th>Fecha Registrada</th>
 						<th>Hora Registrada</th>
@@ -145,14 +149,29 @@ body {
 					for (Cita c : lista) {
 					%>
 					<tr>
-						<td><%=c.getIdCita()%></td>
 						<td><%=c.getNombrePaciente()%></td>
 						<td><%=c.getFechaRegistrada()%></td>
 						<td><%=c.getHoraRegistrada()%></td>
 						<td><%=c.getFechaProgramada()%></td>
 						<td><%=c.getHoraProgramada()%></td>
 						<td><%=c.getDescripcion()%></td>
-						<td><%=c.getEstado()%></td>
+						<td>
+							<form action="<%=request.getContextPath()%>/CitaServlet"
+								method="post" class="m-0">
+								<input type="hidden" name="accion" value="actualizarEstado">
+								<input type="hidden" name="idCita" value="<%=c.getIdCita()%>">
+								<select name="estado" class="form-select form-select-sm"
+									onchange="this.form.submit()">
+									<option value="Pendiente"
+										<%=c.getEstado().equals("Pendiente") ? "selected" : ""%>>Pendiente</option>
+									<option value="Cancelada"
+										<%=c.getEstado().equals("Cancelada") ? "selected" : ""%>>Cancelada</option>
+									<option value="Atendida"
+										<%=c.getEstado().equals("Atendida") ? "selected" : ""%>>Atendida</option>
+								</select>
+							</form>
+						</td>
+
 					</tr>
 					<%
 					}

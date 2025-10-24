@@ -53,13 +53,13 @@ tailwind.config = {
     </div>
 
     <% if (mensajeExito != null) { %>
-        <div class="mt-4 p-3 bg-green-100 text-green-800 rounded-lg"><%=mensajeExito%></div>
+        <div id="mensajeExito" class="mt-4 p-3 bg-green-100 text-green-800 rounded-lg"><%=mensajeExito%></div>
     <% } %>
     <% if (mensajeError != null) { %>
-        <div class="mt-4 p-3 bg-red-100 text-red-800 rounded-lg"><%=mensajeError%></div>
+        <div id="mensajeError" class="mt-4 p-3 bg-red-100 text-red-800 rounded-lg"><%=mensajeError%></div>
     <% } %>
 
-    <form class="space-y-5 mt-6" action="<%=request.getContextPath()%>/CitaServlet" method="post">
+    <form id="formCita" class="space-y-5 mt-6" action="<%=request.getContextPath()%>/CitaServlet" method="post">
       <input type="hidden" name="accion" value="Guardar">
 
       <div class="relative">
@@ -91,26 +91,56 @@ tailwind.config = {
       <div class="relative">
         <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">event</span>
         <input name="fechaProgramada" type="date" required
-               class="w-full pl-10 pr-4 py-3 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white focus:ring-2 focus:ring-primary"/>
+               class="w-full pl-10 pr-4 py-3 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white border-transparent focus:ring-2 focus:ring-primary">
       </div>
 
       <div class="relative">
         <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">schedule</span>
         <input name="horaProgramada" type="time" required
-               class="w-full pl-10 pr-4 py-3 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white focus:ring-2 focus:ring-primary"/>
+               class="w-full pl-10 pr-4 py-3 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white border-transparent focus:ring-2 focus:ring-primary">
       </div>
 
       <div class="relative">
         <span class="material-symbols-outlined absolute left-3 top-4 text-gray-400">description</span>
         <textarea name="descripcion" rows="3" placeholder="Motivo de la cita o detalles adicionales" required
-                  class="w-full pl-10 pr-4 py-3 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white focus:ring-2 focus:ring-primary placeholder-gray-500 dark:placeholder-gray-400"></textarea>
+				class="w-full pl-10 pr-4 py-3 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white border-transparent focus:ring-2 focus:ring-primary"></textarea>
       </div>
 
-      <button type="submit"
-              class="w-full py-3 mt-2 rounded-lg bg-primary text-white font-semibold hover:bg-primary/90 transition">
-        Registrar Cita
-      </button>
+      <div class="flex gap-3">
+        <button type="submit"
+                class="w-1/2 py-3 rounded-lg bg-primary text-white font-semibold hover:bg-primary/90 transition">
+          Registrar Cita
+        </button>
+        <button type="button"
+                onclick="window.history.back()"
+                class="w-1/2 py-3 rounded-lg bg-gray-600 text-white font-semibold hover:bg-gray-700 transition flex items-center justify-center gap-2">
+          <span class="material-symbols-outlined">arrow_back</span>
+          Regresar
+        </button>
+      </div>
     </form>
   </div>
+
+  <script>
+    window.onload = function() {
+      const mensajeExito = document.getElementById("mensajeExito");
+      const mensajeError = document.getElementById("mensajeError");
+      const form = document.getElementById("formCita");
+
+      if (mensajeExito) {
+        setTimeout(() => {
+          mensajeExito.style.display = "none";
+          form.reset();
+        }, 5000);
+      }
+
+      if (mensajeError) {
+        setTimeout(() => {
+          mensajeError.style.display = "none";
+        }, 5000);
+      }
+    }
+  </script>
+
 </body>
 </html>

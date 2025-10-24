@@ -30,20 +30,23 @@ body {
 
 .banner {
 	width: 100%;
-	height: 140px;
+	height: 200px;
 	overflow: hidden;
 	display: flex;
 	align-items: center;
+	justify-content: center;
 	background-color: #ffffff;
 	border-radius: 12px;
 	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-	padding: 0.5rem 1rem;
+	padding: 0;
 }
 
 .banner img {
-	height: 100%;
 	width: 100%;
-	object-fit: contain;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+	display: block;
 }
 
 .welcome-text {
@@ -89,7 +92,7 @@ body {
 	<div class="container mt-4">
 
 		<div class="banner mb-3">
-			<img src="<%=request.getContextPath()%>/img/cibertec.png"
+			<img src="<%=request.getContextPath()%>/img/banner.jpeg"
 				alt="Banner">
 		</div>
 
@@ -135,7 +138,6 @@ body {
 			<table class="table table-bordered text-center">
 				<thead class="thead-azul-oscuro">
 					<tr>
-						<th>ID</th>
 						<th>DNI</th>
 						<th>Nombres</th>
 						<th>Apellidos</th>
@@ -150,7 +152,6 @@ body {
 					for (Doctor d : doctores) {
 					%>
 					<tr>
-						<td><%=d.getIdDoctor()%></td>
 						<td><%=d.getDni()%></td>
 						<td><%=d.getNombres()%></td>
 						<td><%=d.getApellidos()%></td>

@@ -77,6 +77,16 @@ public class CitaServlet extends HttpServlet {
 				request.setAttribute("fechaBuscar", fechaBuscar);
 				acceso = listar;
 				break;
+			case "actualizarEstado":
+			    int idCitaE = Integer.parseInt(request.getParameter("idCita"));
+			    String nuevoEstado = request.getParameter("estado");
+
+			    CitaDAO citaDAO = new CitaDAO();
+			    citaDAO.actualizarEstado(idCitaE, nuevoEstado);
+
+			    response.sendRedirect(request.getContextPath() + "/CitaServlet?accion=listarPorDoc");
+			    return;
+
 
 			case "add":
 				request.setAttribute("listaDoctores", new DoctorDAO().listar());

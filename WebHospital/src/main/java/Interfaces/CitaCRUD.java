@@ -15,4 +15,5 @@ public interface CitaCRUD {
     boolean delete(int id);
     List<Cita> listarPorPagina(int offset, int limite);
     int contarCitas();
+    boolean actualizarEstado(int idCita, String estado);
 }

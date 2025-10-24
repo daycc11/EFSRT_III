@@ -22,6 +22,11 @@ String errorLogin = (String) request.getAttribute("errorLogin");
 <link
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
 	rel="stylesheet" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+	integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 <script id="tailwind-config">
 	tailwind.config = {
 		darkMode : "class",
@@ -42,6 +47,15 @@ String errorLogin = (String) request.getAttribute("errorLogin");
 <style>
 body {
 	min-height: max(884px, 100dvh);
+}
+
+#toggler i {
+	transition: transform 0.3s ease, color 0.3s ease;
+}
+
+#toggler.active i {
+	transform: scale(1.2) rotate(180deg);
+	color: #13a4ec;
 }
 </style>
 </head>
@@ -79,6 +93,7 @@ body {
 		<form class="space-y-6 mt-6"
 			action="<%=request.getContextPath()%>/vistas/logeo/validarDoc.jsp"
 			method="post">
+
 			<div class="relative">
 				<span
 					class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500">badge</span>
@@ -89,12 +104,20 @@ body {
 					class="w-full pl-10 pr-4 py-3 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white border-transparent focus:ring-2 focus:ring-primary placeholder-gray-500 dark:placeholder-gray-400" />
 			</div>
 
+			<!-- Campo de contraseña con icono de ojo -->
 			<div class="relative">
 				<span
 					class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500">lock</span>
+
 				<input id="clave" name="clave" type="password" required
 					placeholder="Ingrese su contraseña"
-					class="w-full pl-10 pr-4 py-3 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white border-transparent focus:ring-2 focus:ring-primary placeholder-gray-500 dark:placeholder-gray-400" />
+					class="w-full pl-10 pr-12 py-3 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white 
+      border-transparent focus:ring-2 focus:ring-primary placeholder-gray-500 dark:placeholder-gray-400" />
+
+				<span id="toggler"
+					class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 cursor-pointer transition-transform duration-200 ease-in-out transform hover:scale-110">
+					<i class="far fa-eye-slash"></i>
+				</span>
 			</div>
 
 			<div class="flex gap-3">
@@ -102,10 +125,28 @@ body {
 					class="w-1/2 py-3 rounded-lg text-white bg-primary hover:bg-primary/90 transition" />
 				<button type="button"
 					onclick="window.location.href='<%=request.getContextPath()%>/vistas/logeo/login.jsp'"
-					class="w-1/2 py-3 rounded-lg text-white bg-gray-600 hover:bg-gray-700 transition">Regresar</button>
-			</div>
+					class="w-1/2 py-3 rounded-lg text-white bg-gray-600 hover:bg-gray-700 transition flex items-center justify-center gap-2">
+					<span class="material-symbols-outlined text-white">arrow_back</span>
+					Regresar
+				</button>
 
+			</div>
 		</form>
 	</div>
+
+	<script>
+		const password = document.getElementById('clave');
+		const toggler = document.getElementById('toggler');
+
+		toggler.addEventListener('click', function() {
+			const icon = toggler.querySelector('i');
+			const isHidden = password.type === 'password';
+
+			password.type = isHidden ? 'text' : 'password';
+			icon.classList.toggle('fa-eye-slash', !isHidden);
+			icon.classList.toggle('fa-eye', isHidden);
+			toggler.classList.toggle('active', isHidden);
+		});
+	</script>
 </body>
 </html>
