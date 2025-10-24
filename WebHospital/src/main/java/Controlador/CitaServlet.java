@@ -140,33 +140,42 @@ public class CitaServlet extends HttpServlet {
 				break;
 
 			case "edit":
-				int id = Integer.parseInt(request.getParameter("id"));
-				request.setAttribute("cita", dao.list(id));
-				acceso = editar;
-				break;
+			    int id = Integer.parseInt(request.getParameter("id"));
+			    request.setAttribute("cita", dao.list(id));
+			    request.setAttribute("listaDoctores", new DoctorDAO().listar());
+			    request.setAttribute("listaPacientes", new PacienteDAO().listar());
 
-			case "Actualizar":
-				int idCita = Integer.parseInt(request.getParameter("idCita"));
-				Cita citaActualizada = new Cita();
-				citaActualizada.setIdCita(idCita);
-				citaActualizada.setFechaRegistrada(request.getParameter("fechaRegistrada"));
-				citaActualizada.setHoraRegistrada(request.getParameter("horaRegistrada"));
-				citaActualizada.setFechaProgramada(request.getParameter("fechaProgramada"));
-				citaActualizada.setHoraProgramada(request.getParameter("horaProgramada"));
-				citaActualizada.setEstado(request.getParameter("estado"));
-				citaActualizada.setDescripcion(request.getParameter("descripcion"));
-				citaActualizada.setIdPaciente(Integer.parseInt(request.getParameter("idPaciente")));
-				citaActualizada.setIdDoctor(Integer.parseInt(request.getParameter("idDoctor")));
-				citaActualizada.setIdRecepcion(Integer.parseInt(request.getParameter("idRecepcion")));
+			    acceso = editar;
+			    break;
 
-				if (dao.edit(citaActualizada)) {
-					request.setAttribute("mensajeExito", "Cita actualizada correctamente.");
-				} else {
-					request.setAttribute("mensajeError", "No se pudo actualizar la cita.");
-				}
-				request.setAttribute("cita", citaActualizada);
-				acceso = editar;
-				break;
+		    case "Actualizar":
+		        int idCita = Integer.parseInt(request.getParameter("idCita"));
+
+		        Cita citaActualizada = new Cita();
+		        citaActualizada.setIdCita(idCita);
+		        citaActualizada.setFechaProgramada(request.getParameter("fechaProgramada"));
+		        citaActualizada.setHoraProgramada(request.getParameter("horaProgramada"));
+		        citaActualizada.setDescripcion(request.getParameter("descripcion"));
+		        citaActualizada.setIdPaciente(Integer.parseInt(request.getParameter("idPaciente")));
+		        citaActualizada.setIdDoctor(Integer.parseInt(request.getParameter("idDoctor")));
+		        
+		        
+		        HttpSession sesion = request.getSession(false);
+		        if (sesion != null && sesion.getAttribute("idRecepcion") != null) {
+		            citaActualizada.setIdRecepcion((Integer) sesion.getAttribute("idRecepcion"));
+		        }
+
+		        if (dao.edit(citaActualizada)) {
+		            request.setAttribute("mensajeExito", "Cita actualizada correctamente.");
+		        } else {
+		            request.setAttribute("mensajeError", "No se pudo actualizar la cita.");
+		        }
+
+		        request.setAttribute("cita", citaActualizada);
+		        request.setAttribute("listaDoctores", new DoctorDAO().listar());
+		        request.setAttribute("listaPacientes", new PacienteDAO().listar());
+		        acceso = editar;
+		        break;
 
 			case "eliminar":
 				int idEliminar = Integer.parseInt(request.getParameter("id"));

@@ -1,143 +1,203 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="Modelo.Cita" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ page import="java.util.List"%>
+<%@ page import="Modelo.Cita"%>
+<%@ page import="Modelo.Doctor"%>
+<%@ page import="Modelo.Paciente"%>
 <%
-    Cita cita = (Cita) request.getAttribute("cita");
+Cita cita = (Cita) request.getAttribute("cita");
+List<Doctor> listaDoctores = (List<Doctor>) request.getAttribute("listaDoctores");
+List<Paciente> listaPacientes = (List<Paciente>) request.getAttribute("listaPacientes");
+String mensajeExito = (String) request.getAttribute("mensajeExito");
+String mensajeError = (String) request.getAttribute("mensajeError");
 %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Editar Cita</title>
-    <link rel="icon" href="<%=request.getContextPath()%>/img/iconoHospital.png"
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Editar Cita</title>
+<link rel="icon"
+	href="<%=request.getContextPath()%>/img/iconoHospital.png"
 	type="image/x-icon">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
-    <style>
-        body {
-            background: linear-gradient(to right, #e9f1ff, #ffffff);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
 
-        .titulo-seccion {
-            background-color: #254aa5;
-            color: white;
-            padding: 12px;
-            border-radius: 8px;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 2rem;
-        }
+<script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+	rel="stylesheet">
 
-        .btn-primary {
-            background-color: #254aa5;
-            border: none;
-            transition: all 0.3s ease;
-        }
+<script>
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        primary: "#13a4ec",
+        "background-light": "#f6f7f8",
+        "background-dark": "#101c22"
+      },
+      fontFamily: {
+        display: ["Inter", "sans-serif"]
+      }
+    }
+  }
+}
+</script>
 
-        .btn-primary:hover {
-            background-color: #1e3e8a;
-            transform: scale(1.05);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .btn-secondary:hover {
-            transform: scale(1.05);
-        }
-    </style>
+<style>
+body {
+	min-height: max(884px, 100dvh);
+}
+</style>
 </head>
-<body>
-<div class="container mt-5">
 
-    <div class="titulo-seccion">
-        <h3><i class="bi bi-pencil-square"></i> Editar Cita</h3>
-    </div>
+<body
+	class="bg-background-light dark:bg-background-dark font-display flex items-center justify-center min-h-screen bg-cover bg-center"
+	style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.5)), url('<%=request.getContextPath()%>/img/fondoLogin.png');">
 
-    <% if (request.getAttribute("mensajeExito") != null) { %>
-        <div class="alert alert-success text-center" id="mensajeExito">
-            <%= request.getAttribute("mensajeExito") %>
-        </div>
-        <script>
-            setTimeout(() => {
-                window.location.href = '<%= request.getContextPath() %>/CitaServlet?accion=listar';
-            }, 3000);
-        </script>
-    <% } %>
+	<div
+		class="w-full max-w-lg bg-white/95 dark:bg-gray-900/90 backdrop-blur-sm rounded-xl shadow-lg p-8">
+		<div class="text-center">
+			<svg class="w-12 h-12 mx-auto text-primary" fill="none"
+				stroke="currentColor" viewBox="0 0 24 24">
+				<path d="M12 4v16m8-8H4" stroke-linecap="round"
+					stroke-linejoin="round" stroke-width="2" />
+			</svg>
+			<h1 class="text-3xl font-bold text-gray-800 dark:text-white mt-4">Editar
+				Cita Médica</h1>
+			<p class="text-gray-600 dark:text-gray-400 mt-2">Modifique los
+				datos de la cita seleccionada</p>
+		</div>
 
-    <% if (request.getAttribute("mensajeError") != null) { %>
-        <div class="alert alert-danger text-center" id="mensajeError">
-            <%= request.getAttribute("mensajeError") %>
-        </div>
-    <% } %>
+		<%
+		if (mensajeExito != null) {
+		%>
+		<div id="mensajeExito"
+			class="mt-4 p-3 bg-green-100 text-green-800 rounded-lg"><%=mensajeExito%></div>
+		<%
+		}
+		%>
 
-    <form action="<%=request.getContextPath()%>/CitaServlet" method="post">
-        <input type="hidden" name="accion" value="Actualizar">
-        <input type="hidden" name="idCita" value="<%= cita.getIdCita() %>">
+		<%
+		if (mensajeError != null) {
+		%>
+		<div id="mensajeError"
+			class="mt-4 p-3 bg-red-100 text-red-800 rounded-lg"><%=mensajeError%></div>
+		<%
+		}
+		%>
 
-        <div class="mb-3">
-            <label class="form-label"><strong>ID Cita</strong></label>
-            <input type="text" class="form-control" value="<%= cita.getIdCita() %>" readonly>
-        </div>
+		<form id="formCita" class="space-y-5 mt-6"
+			action="<%=request.getContextPath()%>/CitaServlet" method="post">
 
-        <div class="row mb-3">
-            <div class="col-md-6">
-                <label class="form-label"><strong>Fecha Registrada</strong></label>
-                <input type="date" class="form-control" name="fechaRegistrada" value="<%= cita.getFechaRegistrada() %>" readonly>
-            </div>
-            <div class="col-md-6">
-                <label class="form-label"><strong>Hora Registrada</strong></label>
-                <input type="time" class="form-control" name="horaRegistrada" value="<%= cita.getHoraRegistrada() %>" readonly>
-            </div>
-        </div>
+			<input type="hidden" name="accion" value="Actualizar"> <input
+				type="hidden" name="idCita"
+				value="<%=cita != null ? cita.getIdCita() : ""%>">
 
-        <div class="row mb-3">
-            <div class="col-md-6">
-                <label class="form-label"><strong>Fecha Programada</strong></label>
-                <input type="date" class="form-control" name="fechaProgramada" value="<%= cita.getFechaProgramada() %>" required>
-            </div>
-            <div class="col-md-6">
-                <label class="form-label"><strong>Hora Programada</strong></label>
-                <input type="time" class="form-control" name="horaProgramada" value="<%= cita.getHoraProgramada() %>" required>
-            </div>
-        </div>
+			<div class="relative">
+				<span
+					class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">person</span>
+				<select name="idPaciente" required
+					class="w-full pl-10 pr-4 py-3 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white border-transparent focus:ring-2 focus:ring-primary">
+					<option value="">Seleccione un paciente</option>
+					<%
+					if (listaPacientes != null) {
+						for (Paciente p : listaPacientes) {
+							String selected = (cita != null && cita.getIdPaciente() == p.getIdPaciente()) ? "selected" : "";
+					%>
+					<option value="<%=p.getIdPaciente()%>" <%=selected%>>
+						<%=p.getNombres()%>
+						<%=p.getApellidos()%>
+					</option>
+					<%
+					}
+					}
+					%>
+				</select>
+			</div>
 
-        <div class="mb-3">
-            <label class="form-label"><strong>Descripción</strong></label>
-            <textarea class="form-control" name="descripcion" rows="3" required><%= cita.getDescripcion() %></textarea>
-        </div>
+			<div class="relative">
+				<span
+					class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">stethoscope</span>
+				<select name="idDoctor" required
+					class="w-full pl-10 pr-4 py-3 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white border-transparent focus:ring-2 focus:ring-primary">
+					<option value="">Seleccione un doctor</option>
+					<%
+					if (listaDoctores != null) {
+						for (Doctor d : listaDoctores) {
+							String selected = (cita != null && cita.getIdDoctor() == d.getIdDoctor()) ? "selected" : "";
+					%>
+					<option value="<%=d.getIdDoctor()%>" <%=selected%>>
+						<%=d.getNombres()%>
+						<%=d.getApellidos()%>
+					</option>
+					<%
+					}
+					}
+					%>
+				</select>
+			</div>
 
-        <div class="mb-3">
-            <label class="form-label"><strong>Estado</strong></label>
-            <select class="form-select" name="estado" required>
-                <option value="Pendiente" <%= "Pendiente".equals(cita.getEstado()) ? "selected" : "" %>>Pendiente</option>
-                <option value="Atendida" <%= "Atendida".equals(cita.getEstado()) ? "selected" : "" %>>Atendida</option>
-                <option value="Cancelada" <%= "Cancelada".equals(cita.getEstado()) ? "selected" : "" %>>Cancelada</option>
-            </select>
-        </div>
+			<div class="relative">
+				<span
+					class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">event</span>
+				<input name="fechaProgramada" type="date" required
+					value="<%=cita != null ? cita.getFechaProgramada() : ""%>"
+					class="w-full pl-10 pr-4 py-3 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white border-transparent focus:ring-2 focus:ring-primary">
+			</div>
 
-        <div class="row mb-3">
-            <div class="col-md-4">
-                <label class="form-label"><strong>ID Paciente</strong></label>
-                <input type="number" class="form-control" name="idPaciente" value="<%= cita.getIdPaciente() %>" required>
-            </div>
-            <div class="col-md-4">
-                <label class="form-label"><strong>ID Doctor</strong></label>
-                <input type="number" class="form-control" name="idDoctor" value="<%= cita.getIdDoctor() %>" required>
-            </div>
-            <div class="col-md-4">
-                <label class="form-label"><strong>ID Recepcionista</strong></label>
-                <input type="number" class="form-control" name="idRecepcion" value="<%= cita.getIdRecepcion() %>" required>
-            </div>
-        </div>
+			<div class="relative">
+				<span
+					class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">schedule</span>
+				<input name="horaProgramada" type="time" required
+					value="<%=cita != null ? cita.getHoraProgramada() : ""%>"
+					class="w-full pl-10 pr-4 py-3 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white border-transparent focus:ring-2 focus:ring-primary">
+			</div>
 
-        <div class="d-flex justify-content-between mt-4 mb-5">
-            <a href="<%=request.getContextPath()%>/CitaServlet?accion=listar" class="btn btn-secondary">
-                <i class="bi bi-x-circle"></i> Cancelar
-            </a>
-            <button type="submit" class="btn btn-primary">
-                <i class="bi bi-save"></i> Guardar Cambios
-            </button>
-        </div>
-    </form>
-</div>
+			<div class="relative">
+				<span
+					class="material-symbols-outlined absolute left-3 top-4 text-gray-400">description</span>
+				<textarea name="descripcion" rows="3" required
+					placeholder="Motivo o detalles de la cita"
+					class="w-full pl-10 pr-4 py-3 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white border-transparent focus:ring-2 focus:ring-primary"><%=cita != null ? cita.getDescripcion() : ""%></textarea>
+			</div>
+
+			<div class="flex gap-3">
+				<button type="submit"
+					class="w-1/2 py-3 rounded-lg bg-primary text-white font-semibold hover:bg-primary/90 transition flex items-center justify-center gap-2">
+					<span class="material-symbols-outlined">save</span> Guardar Cambios
+				</button>
+
+				<button type="button"
+					onclick="window.location.href='<%=request.getContextPath()%>/CitaServlet?accion=listar'"
+					class="w-1/2 py-3 rounded-lg bg-gray-600 text-white font-semibold hover:bg-gray-700 transition flex items-center justify-center gap-2">
+					<span class="material-symbols-outlined">arrow_back</span> Cancelar
+				</button>
+			</div>
+		</form>
+	</div>
+
+	<script>
+	window.onload = function() {
+	    const mensajeExito = document.getElementById("mensajeExito");
+	    const mensajeError = document.getElementById("mensajeError");
+	
+	    if (mensajeExito) {
+	        setTimeout(() => {
+	            window.location.href = '<%=request.getContextPath()%>/CitaServlet?accion=listar';
+	        }, 3000);
+	    }
+	
+	    if (mensajeError) {
+	        setTimeout(() => mensajeError.style.display = "none", 5000);
+	    }
+	}
+	</script>
+
 </body>
 </html>

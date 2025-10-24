@@ -104,7 +104,6 @@ body {
 					class="w-full pl-10 pr-4 py-3 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white border-transparent focus:ring-2 focus:ring-primary placeholder-gray-500 dark:placeholder-gray-400" />
 			</div>
 
-			<!-- Campo de contraseña con icono de ojo -->
 			<div class="relative">
 				<span
 					class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500">lock</span>

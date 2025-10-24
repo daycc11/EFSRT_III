@@ -23,7 +23,7 @@
 
             response.sendRedirect(request.getContextPath() + "/vistas/recepcion/recepcion.jsp");
         } else {
-            request.setAttribute("errorLogin", "DNI o Contraseña incorrectos.");
+            request.setAttribute("errorLogin", "DNI o Contrase&ntilde;a incorrectos.");
             request.getRequestDispatcher("/vistas/recepcion/loginRec.jsp").forward(request, response);
         }
     } catch (Exception e) {

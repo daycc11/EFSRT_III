@@ -79,7 +79,8 @@ body {
 </style>
 </head>
 <body>
-
+	<%@ include file="/vistas/social/redesSociales.jsp" %>
+	
 	<div class="container mt-4">
 
 		<div class="banner mb-3">

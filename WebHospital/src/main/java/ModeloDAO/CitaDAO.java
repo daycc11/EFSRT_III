@@ -202,20 +202,16 @@ public class CitaDAO implements CitaCRUD {
 
     @Override
     public boolean edit(Cita c) {
-        String sql = "UPDATE Cita SET fechaRegistrada=?, horaRegistrada=?, fechaProgramada=?, horaProgramada=?, estado=?, descripcion=?, idPaciente=?, idDoctor=?, idRecepcion=? WHERE idCita=?";
+        String sql = "UPDATE Cita SET fechaProgramada=?, horaProgramada=?, descripcion=?, idPaciente=?, idDoctor=? WHERE idCita=?";
         try {
             con = MySQLConexion.getConexion();
             ps = con.prepareStatement(sql);
-            ps.setString(1, c.getFechaRegistrada());
-            ps.setString(2, c.getHoraRegistrada());
-            ps.setString(3, c.getFechaProgramada());
-            ps.setString(4, c.getHoraProgramada());
-            ps.setString(5, c.getEstado());
-            ps.setString(6, c.getDescripcion());
-            ps.setInt(7, c.getIdPaciente());
-            ps.setInt(8, c.getIdDoctor());
-            ps.setInt(9, c.getIdRecepcion());
-            ps.setInt(10, c.getIdCita());
+            ps.setString(1, c.getFechaProgramada());
+            ps.setString(2, c.getHoraProgramada());
+            ps.setString(3, c.getDescripcion());
+            ps.setInt(4, c.getIdPaciente());
+            ps.setInt(5, c.getIdDoctor());
+            ps.setInt(6, c.getIdCita());
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
             System.out.println("Error al editar Cita: " + e.getMessage());

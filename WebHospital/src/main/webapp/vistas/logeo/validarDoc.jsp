@@ -24,7 +24,7 @@
 
             response.sendRedirect(request.getContextPath() + "/vistas/doctor/doctor.jsp");
         } else {
-            request.setAttribute("errorLogin", "DNI o Contraseña incorrectos.");
+            request.setAttribute("errorLogin", "DNI o Contrase&ntilde;a incorrectos.");
             request.getRequestDispatcher("/vistas/doctor/loginDoc.jsp").forward(request, response);
         }
     } catch (Exception e) {

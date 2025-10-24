@@ -77,7 +77,7 @@ body {
 </style>
 </head>
 <body>
-
+<%@ include file="/vistas/social/redesSociales.jsp" %>
 	<div class="container mt-4">
 
 		<div class="banner mb-3">
@@ -114,7 +114,7 @@ body {
 
 			<div class="col-md-3">
 				<div class="card card-option text-center p-3">
-					<i class="bi bi-person-lines-fill card-icon"></i>
+					<i class="bi bi-people card-icon"></i>
 					<h6 class="card-title">Reporte Pacientes</h6>
 					<a
 						href="<%=request.getContextPath()%>/PacienteServlet?accion=listar"

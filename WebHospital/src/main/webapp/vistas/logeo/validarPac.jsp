@@ -23,7 +23,7 @@
 
             response.sendRedirect(request.getContextPath() + "/vistas/paciente/paciente.jsp");
         } else {
-            request.setAttribute("errorLogin", "DNI o Contraseña incorrectos.");
+            request.setAttribute("errorLogin", "DNI o Contrase&ntilde;a incorrectos.");
             request.getRequestDispatcher("/vistas/paciente/loginPac.jsp").forward(request, response);
         }
     } catch (Exception e) {

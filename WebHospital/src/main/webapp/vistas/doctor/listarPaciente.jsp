@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.List, Modelo.Paciente"%>
 <%
 HttpSession sesion = request.getSession(false);
@@ -14,18 +13,11 @@ if (idDoctorSesion == null) {
 <head>
 <meta charset="UTF-8">
 <title>Listado de Pacientes</title>
-<link rel="icon"
-	href="<%=request.getContextPath()%>/img/iconoHospital.png"
-	type="image/x-icon">
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
-	rel="stylesheet">
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-	rel="stylesheet">
+<link rel="icon" href="<%=request.getContextPath()%>/img/iconoHospital.png" type="image/x-icon">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
 <style>
 body {
@@ -73,11 +65,6 @@ body {
 	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
-.thead-azul-oscuro {
-	background-color: #254aa5;
-	color: white;
-}
-
 .section-title {
 	background-color: #254aa5;
 	color: white;
@@ -85,98 +72,103 @@ body {
 	border-radius: 8px;
 	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 	text-align: center;
+	margin-bottom: 1rem;
 }
 
-.table td, .table th {
-	vertical-align: middle;
+.paciente-card {
+	background: #fff;
+	border-radius: 12px;
+	box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+	padding: 1.2rem;
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+	height: 100%;
+}
+.paciente-card:hover {
+	transform: scale(1.02);
+	box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+.paciente-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 0.5rem;
+}
+.paciente-header h5 {
+	margin: 0;
+	font-weight: 600;
+	color: #254aa5;
+}
+.paciente-info {
+	font-size: 0.95rem;
+	color: #333;
+	margin-bottom: 4px;
 }
 </style>
 </head>
 <body>
-	<div class="container mt-4">
 
-		<div class="banner mb-3">
-			<img src="<%=request.getContextPath()%>/img/banner.jpeg"
-				alt="Banner">
-		</div>
+<%@ include file="/vistas/social/redesSociales.jsp" %>
 
-		<div class="welcome-text">
-			<strong><i class="fas fa-user-md"></i> Doctor:</strong>
-			<%=session.getAttribute("nombres")%>
-			<%=session.getAttribute("apellidos")%>
-		</div>
+<div class="container mt-4 mb-4">
 
-		<div class="mt-3 mb-3 d-flex">
-			<a
-				href="<%=request.getContextPath()%>/CitaServlet?accion=listarPorDoc"
-				class="btn btn-light me-2"> <i class="bi bi-calendar-check"></i>
-				Citas Proximas
-			</a> <a
-				href="<%=request.getContextPath()%>/PacienteServlet?accion=listar&origen=doctor"
-				class="btn btn-light me-2"> <i class="bi bi-clipboard-data"></i>
-				Reporte Pacientes
-			</a> <a href="<%=request.getContextPath()%>/vistas/logeo/login.jsp"
-				class="btn btn-light me-2"> <i
-				class="bi bi-box-arrow-right text-danger"></i> Cerrar sesión
-			</a>
-		</div>
-
-		<div class="section-title text-center mb-4">
-			<h5>
-				<i class="bi bi-people"></i> Listado de Pacientes
-			</h5>
-		</div>
-
-		<div class="table-responsive">
-			<%
-			List<Paciente> pacientes = (List<Paciente>) request.getAttribute("pacientes");
-			if (pacientes != null && !pacientes.isEmpty()) {
-			%>
-			<table class="table table-bordered text-center">
-				<thead class="thead-azul-oscuro">
-					<tr>
-						<th>DNI</th>
-						<th>Nombres</th>
-						<th>Apellidos</th>
-						<th>Correo</th>
-						<th>Teléfono</th>
-						<th>Dirección</th>
-						<th>Fecha Nacimiento</th>
-					</tr>
-				</thead>
-				<tbody>
-					<%
-					for (Paciente p : pacientes) {
-					%>
-					<tr>
-						<td><%=p.getDni()%></td>
-						<td><%=p.getNombres()%></td>
-						<td><%=p.getApellidos()%></td>
-						<td><%=p.getCorreo()%></td>
-						<td><%=p.getTelefono()%></td>
-						<td><%=p.getDireccion()%></td>
-						<td><%=p.getFechaNacimiento()%></td>
-					</tr>
-					<%
-					}
-					%>
-				</tbody>
-			</table>
-			<%
-			} else {
-			%>
-			<div class="alert alert-info text-center mt-3">
-				<i class="bi bi-info-circle-fill"></i> No se encontraron pacientes
-				registrados.
-			</div>
-			<%
-			}
-			%>
-		</div>
-
+	<div class="banner mb-3">
+		<img src="<%=request.getContextPath()%>/img/banner.jpeg" alt="Banner">
 	</div>
 
-	<script src="https://kit.fontawesome.com/a076d05399.js"
-		crossorigin="anonymous"></script>
+	<div class="welcome-text mb-3">
+		<strong><i class="fas fa-user-md"></i> Doctor:</strong>
+		<%=sesion.getAttribute("nombres")%> <%=sesion.getAttribute("apellidos")%>
+	</div>
+
+	<div class="mb-4 d-flex flex-wrap gap-2">
+		<a href="<%=request.getContextPath()%>/CitaServlet?accion=listarPorDoc" class="btn btn-light">
+			<i class="bi bi-calendar-check"></i> Citas Próximas
+		</a>
+		<a href="<%=request.getContextPath()%>/PacienteServlet?accion=listar&origen=doctor" class="btn btn-light">
+			<i class="bi bi-people"></i> Reporte Pacientes
+		</a>
+		<a href="<%=request.getContextPath()%>/vistas/logeo/login.jsp" class="btn btn-light text-danger">
+			<i class="bi bi-box-arrow-right text-danger"></i> Cerrar sesión
+		</a>
+	</div>
+
+	<div class="section-title">
+		<h5><i class="bi bi-list-ul"></i> Listado de Pacientes</h5>
+	</div>
+
+	<div class="row g-4">
+	<%
+	List<Paciente> pacientes = (List<Paciente>) request.getAttribute("pacientes");
+	if (pacientes != null && !pacientes.isEmpty()) {
+		for (Paciente p : pacientes) {
+	%>
+		<div class="col-md-4">
+			<div class="paciente-card">
+				<div class="paciente-header">
+					<h5><i class="fas fa-user"></i> <%=p.getNombres()%> <%=p.getApellidos()%></h5>
+				</div>
+				<div class="paciente-info"><strong>DNI:</strong> <%=p.getDni()%></div>
+				<div class="paciente-info"><strong>Correo:</strong> <%=p.getCorreo()%></div>
+				<div class="paciente-info"><strong>Teléfono:</strong> <%=p.getTelefono()%></div>
+				<div class="paciente-info"><strong>Dirección:</strong> <%=p.getDireccion()%></div>
+				<div class="paciente-info"><strong>Fecha Nacimiento:</strong> <%=p.getFechaNacimiento()%></div>
+			</div>
+		</div>
+	<%
+		}
+	} else {
+	%>
+		<div class="col-12">
+			<div class="alert alert-info text-center">
+				<i class="bi bi-info-circle-fill"></i> No se encontraron pacientes registrados.
+			</div>
+		</div>
+	<%
+	}
+	%>
+	</div>
+
+</div>
+
 </body>
 </html>

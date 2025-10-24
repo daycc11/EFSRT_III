@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*, Modelo.Cita"%>
 <%
 HttpSession sesion = request.getSession(false);
@@ -16,14 +15,9 @@ if (idRecepcion == null) {
 <head>
 <meta charset="UTF-8">
 <title>Reporte Citas</title>
-<link rel="icon" href="<%=request.getContextPath()%>/img/iconoHospital.png"
-	type="image/x-icon">
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
-	rel="stylesheet">
+<link rel="icon" href="<%=request.getContextPath()%>/img/iconoHospital.png" type="image/x-icon">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
 
 <style>
 body {
@@ -42,7 +36,6 @@ body {
 	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 	padding: 0;
 }
-
 .banner img {
 	width: 100%;
 	height: 100%;
@@ -50,31 +43,22 @@ body {
 	object-position: center;
 	display: block;
 }
-
 .welcome-text {
 	text-align: end;
 	margin-top: 10px;
 	font-size: 1.1rem;
 	color: #333;
 }
-
 .btn-light {
 	transition: all 0.3s ease;
 	background-color: #f8f9fa;
 	border: 1px solid #dee2e6;
 }
-
 .btn-light:hover {
 	transform: scale(1.05);
 	background-color: #e2e6ea;
 	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
-
-.thead-azul-oscuro {
-	background-color: #254aa5;
-	color: white;
-}
-
 .section-title {
 	background-color: #254aa5;
 	color: white;
@@ -85,102 +69,153 @@ body {
 	margin-bottom: 1rem;
 }
 
-.table td, .table th {
-	vertical-align: middle;
+.cita-card {
+	background: #fff;
+	border-radius: 12px;
+	box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+	padding: 1.2rem;
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+.cita-card:hover {
+	transform: scale(1.02);
+	box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+.cita-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 0.5rem;
+}
+.cita-header h5 {
+	margin: 0;
+	font-weight: 600;
+	color: #254aa5;
+}
+.cita-detalle {
+	font-size: 0.95rem;
+	color: #333;
+	margin-bottom: 4px;
+}
+
+.status {
+	font-size: 0.8rem;
+	font-weight: 500;
+	padding: 0.3rem 0.6rem;
+	border-radius: 10px;
+}
+.status-Atendida {
+	background-color: #d1f7e3;
+	color: #1a7f4c;
+}
+.status-Pendiente {
+	background-color: #fff3cd;
+	color: #856404;
+}
+.status-Cancelada {
+	background-color: #f8d7da;
+	color: #842029;
+}
+
+.btn-edit {
+	background-color: #254aa5;
+	color: #fff;
+	border: none;
+	padding: 0.5rem 1rem;
+	border-radius: 8px;
+	font-size: 0.9rem;
+	transition: all 0.3s ease;
+}
+.btn-edit:hover {
+	background-color: #173a82;
+	transform: scale(1.05);
 }
 </style>
 </head>
+
 <body>
-	<div class="container mt-4">
+<%@ include file="/vistas/social/redesSociales.jsp" %>
 
-		<div class="banner mb-3">
-			<img src="<%=request.getContextPath()%>/img/banner.jpeg"
-				alt="Banner">
-		</div>
+<div class="container mt-4 mb-4">
 
-		<div class="welcome-text mb-3">
-			<strong><i class="bi bi-person-badge-fill"></i> Recepcionista:</strong>
-			<%=sesion.getAttribute("nombres")%> <%=sesion.getAttribute("apellidos")%>
-		</div>
-
-		<div class="mb-4 d-flex flex-wrap gap-2">
-			<a href="<%=request.getContextPath()%>/CitaServlet?accion=listar"
-				class="btn btn-light"> <i class="bi bi-calendar-check"></i>
-				Reporte Citas
-			</a> 
-			<a href="<%=request.getContextPath()%>/DoctorServlet?accion=listar"
-				class="btn btn-light"> <i class="bi bi-person-badge"></i>
-				Reporte Doctores
-			</a> 
-			<a href="<%=request.getContextPath()%>/PacienteServlet?accion=listar"
-				class="btn btn-light"> <i class="bi bi-people"></i> Reporte
-				Pacientes
-			</a> 
-			<a href="<%=request.getContextPath()%>/CitaServlet?accion=add"
-				class="btn btn-light"> <i class="bi bi-pencil-square"></i>
-				Registrar Citas
-			</a> 
-			<a href="<%=request.getContextPath()%>/vistas/recepcion/loginRec.jsp"
-				class="btn btn-light text-danger"> <i
-				class="bi bi-box-arrow-right text-danger"></i> Cerrar sesión
-			</a>
-		</div>
-
-		<div class="section-title">
-			<h5>
-				<i class="bi bi-list-ul"></i> Listado de Citas
-			</h5>
-		</div>
-
-		<div class="table-responsive">
-			<%
-			List<Cita> lista = (List<Cita>) request.getAttribute("citas");
-			if (lista != null && !lista.isEmpty()) {
-			%>
-			<table class="table table-bordered text-center">
-				<thead class="thead-azul-oscuro">
-					<tr>
-						<th>Paciente</th>
-						<th>Doctor</th>
-						<th>Fecha Registrada</th>
-						<th>Hora Registrada</th>
-						<th>Fecha Programada</th>
-						<th>Hora Programada</th>
-						<th>Descripción</th>
-						<th>Estado</th>
-					</tr>
-				</thead>
-				<tbody>
-					<%
-					for (Cita c : lista) {
-					%>
-					<tr>
-						<td><%=c.getNombrePaciente()%></td>
-						<td><%=c.getNombreDoctor()%></td>
-						<td><%=c.getFechaRegistrada()%></td>
-						<td><%=c.getHoraRegistrada()%></td>
-						<td><%=c.getFechaProgramada()%></td>
-						<td><%=c.getHoraProgramada()%></td>
-						<td><%=c.getDescripcion()%></td>
-						<td><%=c.getEstado()%></td>
-					</tr>
-					<%
-					}
-					%>
-				</tbody>
-			</table>
-			<%
-			} else {
-			%>
-			<div class="alert alert-info text-center" role="alert">
-				<i class="bi bi-info-circle-fill"></i> No se encontraron citas
-				registradas.
-			</div>
-			<%
-			}
-			%>
-		</div>
-
+	<div class="banner mb-3">
+		<img src="<%=request.getContextPath()%>/img/banner.jpeg" alt="Banner">
 	</div>
+
+	<div class="welcome-text mb-3">
+		<strong><i class="bi bi-person-badge-fill"></i> Recepcionista:</strong>
+		<%=sesion.getAttribute("nombres")%> <%=sesion.getAttribute("apellidos")%>
+	</div>
+
+	<div class="mb-4 d-flex flex-wrap gap-2">
+		<a href="<%=request.getContextPath()%>/CitaServlet?accion=listar" class="btn btn-light">
+			<i class="bi bi-calendar-check"></i> Reporte Citas
+		</a>
+		<a href="<%=request.getContextPath()%>/DoctorServlet?accion=listar" class="btn btn-light">
+			<i class="bi bi-person-badge"></i> Reporte Doctores
+		</a>
+		<a href="<%=request.getContextPath()%>/PacienteServlet?accion=listar" class="btn btn-light">
+			<i class="bi bi-people"></i> Reporte Pacientes
+		</a>
+		<a href="<%=request.getContextPath()%>/CitaServlet?accion=add" class="btn btn-light">
+			<i class="bi bi-pencil-square"></i> Registrar Citas
+		</a>
+		<a href="<%=request.getContextPath()%>/vistas/recepcion/loginRec.jsp" class="btn btn-light text-danger">
+			<i class="bi bi-box-arrow-right text-danger"></i> Cerrar sesión
+		</a>
+	</div>
+
+	<div class="section-title">
+		<h5><i class="bi bi-list-ul"></i> Listado de Citas</h5>
+	</div>
+
+	<div class="row g-4">
+	<%
+	List<Cita> lista = (List<Cita>) request.getAttribute("citas");
+	if (lista != null && !lista.isEmpty()) {
+		for (Cita c : lista) {
+			String estado = c.getEstado();
+			String claseEstado = "status-" + estado;
+	%>
+
+		<div class="col-md-4">
+			<div class="cita-card">
+				<div>
+					<div class="cita-header">
+						<h5><i class="bi bi-calendar-check"></i> <%=c.getNombrePaciente()%></h5>
+						<span class="status <%=claseEstado%>"><%=estado%></span>
+					</div>
+					<div class="cita-detalle"><strong>Doctor:</strong> <%=c.getNombreDoctor()%></div>
+					<div class="cita-detalle"><strong>Fecha Programada:</strong> <%=c.getFechaProgramada()%> - <%=c.getHoraProgramada()%></div>
+					<div class="cita-detalle"><strong>Registrada:</strong> <%=c.getFechaRegistrada()%> a las <%=c.getHoraRegistrada()%></div>
+					<div class="cita-detalle"><strong>Descripción:</strong> <%=c.getDescripcion()%></div>
+				</div>
+
+				<div class="text-end mt-3">
+					<a href="<%=request.getContextPath()%>/CitaServlet?accion=edit&id=<%=c.getIdCita()%>" 
+					   class="btn-edit">
+					   <i class="bi bi-pencil-fill"></i> Editar
+					</a>
+				</div>
+			</div>
+		</div>
+
+	<%
+		}
+	} else {
+	%>
+		<div class="col-12">
+			<div class="alert alert-info text-center" role="alert">
+				<i class="bi bi-info-circle-fill"></i> No se encontraron citas registradas.
+			</div>
+		</div>
+	<%
+	}
+	%>
+	</div>
+</div>
 </body>
 </html>
